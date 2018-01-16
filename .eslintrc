@@ -7,10 +7,7 @@
     "newline-before-return": 2
   },
   "globals": {
-    "window": true,
-    "URL": true,
-    "navigator": true,
-    "fetch": true
+    "document": true
   },
   "settings": {
     "react": {
