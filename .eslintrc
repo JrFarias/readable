@@ -4,10 +4,9 @@
     "plugin:react/recommended"
   ],
   "rules": {
-    "newline-before-return": 2
-  },
-  "globals": {
-    "document": true
+    "newline-before-return": 2,
+    "no-console": "off",
+    "no-undef": "off"
   },
   "settings": {
     "react": {
