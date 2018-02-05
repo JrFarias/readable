@@ -6,7 +6,8 @@
   "rules": {
     "newline-before-return": 2,
     "no-console": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-debugger": "off"
   },
   "settings": {
     "react": {

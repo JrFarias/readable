@@ -9,7 +9,7 @@ const Template = ({
   footer
 }) => (
   <div className="wrapper">
-    <header className="header">{ header }</header>
+    <header className="Header">{ header }</header>
     <article className="main">{ content }</article>
     <aside className="aside aside-1">{ aside }</aside>
     <footer className="footer">{ footer }</footer>
