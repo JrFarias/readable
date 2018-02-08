@@ -1,27 +1,17 @@
-import React, { Component } from 'react';
-import { getCategories } from '../../util/Api'
+import React, { Component } from 'react'
 import Loading from 'react-loading'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { mapDispatchToProps, mapStateToProps } from '../../ducks/Categories/CategoriesReducer'
 import './Aside.css'
 
-export default class Aside extends Component {
-
-  state = {
-    isLoading: true,
-    categories: []
-  }
-
+class Aside extends Component {
   componentDidMount() {
-    getCategories()
-    .then(categories => {
-      this.setState({
-        isLoading: false,
-        categories
-      })}
-    )
+    this.props.getCategories()
   }
 
   render() {
-    const { categories, isLoading } = this.state;
+    const { categories, isLoading } = this.props;
 
     return (
       <ul className="Aside_Menu">
@@ -36,3 +26,15 @@ export default class Aside extends Component {
     )
   }
 }
+
+Aside.propTypes = {
+  getCategories: PropTypes.func,
+  categories: PropTypes.array,
+  isLoading: PropTypes.bool
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Aside)
+
