@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import Loading from 'react-loading'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { mapDispatchToProps, mapStateToProps } from '../../ducks/Categories/CategoriesReducer'
 import './Aside.css'
 
-class Aside extends Component {
+export default class Aside extends Component {
   componentDidMount() {
-    this.props.getCategories()
+    this.props.actions.getCategories();
   }
 
   render() {
@@ -28,13 +26,17 @@ class Aside extends Component {
 }
 
 Aside.propTypes = {
-  getCategories: PropTypes.func,
+  actions: PropTypes.object,
   categories: PropTypes.array,
   isLoading: PropTypes.bool
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Aside)
+Aside.defaultProps = {
+  categories: [],
+  isLoading: false,
+  actions: {
+    getCategories: () => {}
+  }
+}
+
 

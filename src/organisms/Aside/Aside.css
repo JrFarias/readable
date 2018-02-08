@@ -11,6 +11,8 @@
   font-size: 40px;
   color: #07b;
   padding: 1.5em 0;
+  border: 1px #07b solid;
+  background-color: #fff;
 }
 
 .Aside_Item:hover {

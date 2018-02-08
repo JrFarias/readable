@@ -1,6 +1,13 @@
 import { combineReducers } from 'redux';
-import { categoriesReducer } from '../ducks/Categories/CategoriesReducer'
+import { takeEvery } from 'redux-saga/effects'
+import categoriesReducer, { GET_CATEGORIES_SAGA, getCategoriesSaga } from '../ducks/Categories/CategoriesReducer'
 
-export default combineReducers({
+export const rootReducer = combineReducers({
   categoriesReducer
 })
+
+export function *rootSaga() {
+  yield [
+    takeEvery(GET_CATEGORIES_SAGA, getCategoriesSaga)
+  ];
+}

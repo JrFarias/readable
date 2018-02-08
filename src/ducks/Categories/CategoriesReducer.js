@@ -1,23 +1,21 @@
+import { put } from 'redux-saga/effects'
 import { getCategoriesAPI } from '../../util/Api'
 
-const GET_CATEGORIES_START = 'GET_CATEGORIES_start'
-const GET_CATEGORIES_COMPLETED = 'GET_CATEGORIES_completed'
+export const GET_CATEGORIES_SAGA = 'GET_CATEGORIES_SAGA'
+const GET_CATEGORIES_START = 'GET_CATEGORIES_START'
+const GET_CATEGORIES_COMPLETED = 'GET_CATEGORIES_COMPLETED'
 
-const getCategoriesCompleted = (categories) => ({
-  type: GET_CATEGORIES_COMPLETED,
+export const getCategories = (categories) => ({
+  type: GET_CATEGORIES_SAGA,
   payload: categories
 })
 
-const getCategoriesStart = () => ({
-  type: GET_CATEGORIES_START,
-})
-
-const initialState = {
+export const initialState = {
   categories: [],
   isLoading: false
 }
 
-const categoriesReducer = (state = initialState, action) => {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case GET_CATEGORIES_START :
       return {
@@ -35,28 +33,13 @@ const categoriesReducer = (state = initialState, action) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getCategories:() => {
-    dispatch(getCategoriesStart())
+export function *getCategoriesSaga({ payload }, getCategoriesApi = getCategoriesAPI) {
+  try {
+    yield put({ type: GET_CATEGORIES_START, payload })
+    const categories = yield getCategoriesApi()
 
-    return getCategoriesAPI()
-    .then(categories =>
-      dispatch(getCategoriesCompleted(categories)))
-    }
-})
-
-
-const  mapStateToProps = state => ({
-  categories: state.categoriesReducer.categories,
-  isLoading: state.categoriesReducer.isLoading,
-})
-
-export {
-  GET_CATEGORIES_START,
-  GET_CATEGORIES_COMPLETED,
-  getCategoriesStart,
-  getCategoriesCompleted,
-  categoriesReducer,
-  mapDispatchToProps,
-  mapStateToProps
+    yield put({ type: GET_CATEGORIES_COMPLETED, payload: categories })
+  } catch (error) {
+    ///
+  }
 }
