@@ -1,0 +1,35 @@
+.Vote {
+  background-color: #eee;
+  border-radius: 3em;
+  margin-left: 0.625em;
+  padding: 0.125em 1.563em;
+}
+
+.Vote__positive {
+  background-color: white;
+  border-radius: 3em;
+  font-size: 0.75em;
+  font-weight: bold;
+  border: 0.125em #07b solid;
+  cursor: pointer;
+  outline-style: none;
+}
+
+.Vote__positive:hover {
+  background-color: #07b
+}
+
+.Vote__negative {
+  background-color: white;
+  border-radius: 3em;
+  font-size: 0.75em;
+  font-weight: bold;
+  border: 0.125em red solid;
+  cursor: pointer;
+  margin-left: 0.313em;
+  outline-style: none;
+}
+
+.Vote__negative:hover {
+  background-color: red
+}
