@@ -3,6 +3,7 @@
   flex-flow: row wrap;
   font-weight: bold;
   text-align: center;
+  background-color: #eee;
 }
 
 .wrapper > * {
@@ -16,19 +17,25 @@
 .main {
   text-align: left;
   order: 2;
+  border: 1px red solid;
 }
 
 .aside-1 {
   order: 1;
 }
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 37.5em) {
   .aside { flex: 1 auto; }
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 50em) {
   .main    { flex: 3 0px; }
   .aside-1 { order: 1; }
   .main    { order: 2; }
   .footer  { order: 3; }
+}
+
+.Header {
+  background-color: #07b;
+  font-size: 1.25em;
 }
