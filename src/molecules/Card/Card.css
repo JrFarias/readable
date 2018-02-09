@@ -1,0 +1,50 @@
+.Card {
+  background-color: #fff;
+  border-radius: 0.125em;
+  margin-bottom: 0.313em;
+  padding: 0.625em 0.625em 0.125em 0.625em;
+  transition: box-shadow .25s, -webkit-box-shadow .25s;
+}
+
+span {
+  font-weight: normal;
+}
+
+.Card__Head {
+  background-color:#eee;
+  border-radius: 3em;
+}
+
+.Card__Head-title {
+  text-align: center;
+  margin: 0.0625em;
+}
+
+.Card__Content {
+  background-color: #eee;
+  padding: 2px 5px;
+}
+
+.Card__Footer {
+  align-items: center;
+  border-top: 1px #eee solid;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2px;
+}
+
+.Card__Footer-end {
+  display: flex;
+  align-items: center;
+}
+
+.Card__Footer-author {
+  background-color: #eee;
+  border-radius: 3em;
+  font-size: 14px;
+  padding: 2px 5px;
+}
+
+.Card__Foote-date {
+  font-size: 14px;
+}

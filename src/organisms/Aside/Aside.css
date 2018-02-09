@@ -8,11 +8,11 @@
 }
 
 .Aside_Item {
-  font-size: 40px;
-  color: #07b;
-  padding: 1.5em 0;
-  border: 1px #07b solid;
   background-color: #fff;
+  border: 1px #07b solid;
+  color: #07b;
+  font-size: 40px;
+  padding: 1.5em 0;
 }
 
 .Aside_Item:hover {
@@ -26,12 +26,14 @@
 
 @media screen and (max-width: 800px) {
   .Aside_Menu {
+    background-color: #07b;
     flex-direction: row;
   }
 
   .Aside_Item {
-    font-size: 20px;
+    border-radius: 3em;
     color: #07b;
-    padding: 1em 0;
+    font-size: 14px;
+    padding: 1em;
   }
 }

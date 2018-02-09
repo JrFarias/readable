@@ -17,7 +17,6 @@
 .main {
   text-align: left;
   order: 2;
-  border: 1px red solid;
 }
 
 .aside-1 {
@@ -36,6 +35,7 @@
 }
 
 .Header {
-  background-color: #07b;
+  background-color: #fff;
   font-size: 1.25em;
+  border: 8px #07b solid;
 }
