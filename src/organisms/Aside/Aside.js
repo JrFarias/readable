@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Loading from 'react-loading'
 import PropTypes from 'prop-types'
 import './Aside.css'
 
-export default class Aside extends Component {
+export default class Aside extends PureComponent {
   componentDidMount() {
     this.props.actions.getCategories();
   }
