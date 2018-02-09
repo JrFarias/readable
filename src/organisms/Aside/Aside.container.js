@@ -8,8 +8,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const  mapStateToProps = state => ({
-  categories: state.categoriesReducer.categories,
-  isLoading: state.categoriesReducer.isLoading,
+  categories: state.categories.categories,
+  isLoading: state.categories.isLoading,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Aside)
