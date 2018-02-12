@@ -12,7 +12,7 @@ span {
 
 .Card__Head {
   background-color:#eee;
-  border-radius: 3em;
+  border-radius: 0.125em;
 }
 
 .Card__Head-title {
@@ -22,6 +22,8 @@ span {
 
 .Card__Content {
   background-color: #eee;
+  border-radius: 0.125em;
+  display: flex;
   padding: 2px 5px;
 }
 
@@ -40,7 +42,8 @@ span {
 
 .Card__Footer-author {
   background-color: #eee;
-  border-radius: 3em;
+  border-radius: 0.125em;
+  display: flex;
   font-size: 14px;
   padding: 2px 5px;
 }

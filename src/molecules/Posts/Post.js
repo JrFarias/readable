@@ -20,6 +20,7 @@ export default class Post extends PureComponent {
       : posts.map(post => (
           <Card
             key={post.id}
+            postId={post.id}
             author={post.author}
             title={post.title}
             body={post.body}

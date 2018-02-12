@@ -1,6 +1,7 @@
 .Vote {
   background-color: #eee;
-  border-radius: 3em;
+  border-radius: 0.125em;
+  display: flex;
   margin-left: 0.625em;
   padding: 0.125em 1.563em;
 }
@@ -11,7 +12,7 @@
   font-size: 0.75em;
   font-weight: bold;
   border: 0.125em #07b solid;
-  cursor: pointer;
+  /* cursor: pointer; */
   outline-style: none;
 }
 

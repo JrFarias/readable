@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import './Card.css'
-import Votes from '../../atoms/Vote/Vote'
+import Vote from '../../atoms/Vote/Vote.container'
 
 const formatDate = (date, moment) => moment(date).format('DD/MM/YYYY')
 
-
 const Card = ({
+  postId,
   author,
   title,
   body,
@@ -15,13 +15,13 @@ const Card = ({
   timestamp,
   voteScore,
 }) => (
-  <div className="Card">
+  <div id={timestamp} className="Card">
     <div className="Card__Head">
       <p className="Card__Head-title">{ title }</p>
     </div>
     <div className="Card__Content">
-      <div className="Card__Content--category col-md-2"><span>Category: </span>{ category }</div>
-      <div className="Card__Content-body col-md-10">
+      <div className="Card__Content--category col-md-4"><span>Category: </span>{ category }</div>
+      <div className="Card__Content-body col-md-6">
       { body }
       </div>
     </div>
@@ -29,13 +29,17 @@ const Card = ({
       <div className="Card__Footer-author"><span>Author: </span>{ author }</div>
       <div className="Card__Footer-end">
         <span className="Card__Foote-date">{ formatDate(timestamp, moment) }</span>
-        <Votes voteScore={voteScore} />
+        <Vote
+          postId={postId}
+          voteScore={voteScore}
+        />
       </div>
     </div>
   </div>
 )
 
 Card.propTypes = {
+  postId: PropTypes.string,
   author: PropTypes.string,
   title: PropTypes.string,
   body: PropTypes.string,
@@ -45,6 +49,7 @@ Card.propTypes = {
 }
 
 Card.defaultProps = {
+  postId: 0,
   author: '',
   title: '',
   body: '',

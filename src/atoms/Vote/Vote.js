@@ -1,44 +1,63 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import Proptypes from 'prop-types'
 import './Vote.css'
 
-const votes = ({
-  voteScore
-}) => {
-  const NEGATIVE_NUMBER = -1;
-  let voteValue = 0;
+export default class Vote extends PureComponent {
 
-  if (Math.sign(voteScore) === NEGATIVE_NUMBER) {
+  render() {
+    const { voteScore, postId } = this.props
+    const { upVote, downVote } = this.props.actions
+
+    const NEGATIVE_NUMBER = -1;
+    let voteValue = 0;
+
+    if (Math.sign(voteScore) === NEGATIVE_NUMBER) {
+      return (
+        <div className="Vote">
+          <button
+            className="Vote__positive"
+            onClick={() => upVote(postId)}
+          >
+            {voteValue}
+          </button>
+          <button
+            className="Vote__negative"
+            onClick={() => downVote(postId)}
+          >
+            {voteScore}
+          </button>
+        </div>
+      )
+    }
+
     return (
       <div className="Vote">
-        <button className="Vote__positive">
-          {voteValue}
-        </button>
-        <button className="Vote__negative">
+        <button
+          className="Vote__positive"
+          onClick={() => upVote(postId)}
+        >
           {voteScore}
         </button>
-     </div>
+        <button
+          className="Vote__negative"
+          onClick={() => downVote(postId)}
+        >
+          {voteValue}
+        </button>
+      </div>
     )
   }
-
-  return (
-    <div className="Vote">
-      <button className="Vote__positive">
-        {voteScore}
-      </button>
-      <button className="Vote__negative">
-        {voteValue}
-      </button>
-    </div>
-  )
 }
 
-votes.propTypes = {
-  voteScore: Proptypes.number
+Vote.propTypes = {
+  voteScore: Proptypes.number,
+  postId: Proptypes.string,
+  actions: Proptypes.object
 }
 
-votes.defaultProps = {
-  voteScore: 0
+Vote.defaultProps = {
+  voteScore: 0,
+  postId: 0,
+  actions: {}
 }
 
-export default votes
