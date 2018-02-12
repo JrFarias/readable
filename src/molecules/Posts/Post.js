@@ -15,7 +15,7 @@ export default class Post extends PureComponent {
 
     return (
       <div className="Post">
-      {isLoading === true && posts.length ===0
+      {isLoading === true && posts.length === 0
       ? <Loading delay={200} type='spin' color='#222' className='loading' />
       : posts.map(post => (
           <Card

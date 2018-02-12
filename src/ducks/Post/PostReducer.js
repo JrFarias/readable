@@ -1,5 +1,5 @@
 import { put } from 'redux-saga/effects'
-import { getPostAPI, voteAPI } from '../../util/Api'
+import { getPostAPI, voteAPI, getPostByCategoryAPI } from '../../util/Api'
 
 export const GET_POSTS_SAGA = 'GET_POSTS_SAGA'
 const GET_POSTS_START = 'GET_POSTS_START'
@@ -11,9 +11,12 @@ const UP_VOTE_COMPLETED = 'UP_VOTE_COMPLETED'
 export const DOWN_VOTE = 'DOWN_VOTE'
 const DOWN_VOTE_COMPLETED = 'DOWN_VOTE_COMPLETED'
 
-export const getPosts = (categories) => ({
+export const GET_POST_BY_CATEGORY = 'GET_POST_BY_CATEGORY'
+const GET_POST_BY_CATEGORY_COMPLETED = 'GET_POST_BY_CATEGORY_COMPLETED'
+
+export const getPosts = (post) => ({
   type: GET_POSTS_SAGA,
-  payload: categories
+  payload: post
 })
 
 export const upVote = (postId) => ({
@@ -25,6 +28,12 @@ export const downVote = (postId) => ({
   type: DOWN_VOTE,
   postId
 })
+
+export const getPostByCategory = (category) => ({
+  type: GET_POST_BY_CATEGORY,
+  payload: category
+})
+
 
 export const initialState = {
   posts: [],
@@ -69,34 +78,55 @@ export default function reducer(state = initialState, action = {}) {
         posts: state.posts.map(post => post.id === postId ? payload : post),
         isLoading: false
       };
+
+    case GET_POST_BY_CATEGORY:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case GET_POST_BY_CATEGORY_COMPLETED:
+      return {
+        ...state,
+        posts: payload,
+        isLoading: true
+      }
     default :
       return state
   }
 }
 
-export function *getPostsSaga({ payload }, getPost = getPostAPI) {
+export function *getPostsSaga({ payload }, request = getPostAPI) {
   try {
     yield put({ type: GET_POSTS_START, payload })
-    const posts = yield getPost()
+    const posts = yield request()
     yield put({ type: GET_POSTS_COMPLETED, payload: posts })
   } catch (error) {
     ///
   }
 }
 
-export function *upVoteSaga({ postId }, voteApi = voteAPI) {
+export function *upVoteSaga({ postId }, request = voteAPI) {
   try {
-    const vote = yield voteApi(postId, 'upVote')
+    const vote = yield request(postId, 'upVote')
     yield put({ type: UP_VOTE_COMPLETED, postId, payload: vote })
   } catch (error) {
     ///
   }
 }
 
-export function *downVoteSaga({ postId }, voteApi = voteAPI) {
+export function *downVoteSaga({ postId }, request = voteAPI) {
   try {
-    const vote = yield voteApi(postId, 'downVote')
+    const vote = yield request(postId, 'downVote')
     yield put({ type: DOWN_VOTE_COMPLETED, postId, payload: vote })
+  } catch (error) {
+    ///
+  }
+}
+
+export function *getPostByCategorySaga({ payload }, request = getPostByCategoryAPI) {
+  try {
+    const postByCategory = yield request(payload)
+    yield put({ type: GET_POST_BY_CATEGORY_COMPLETED, payload: postByCategory })
   } catch (error) {
     ///
   }

@@ -11,14 +11,24 @@
   background-color: #fff;
   border: 1px #07b solid;
   color: #07b;
+  cursor: pointer;
   font-size: 40px;
 }
 
-.Aside_Item:hover {
+.Aside_Item-NavLink {
+  text-decoration: none;
+  color: #07b;
+}
+
+.Aside_Item-NavLink p {
+  border-bottom: 2px #fff solid;
+}
+
+.Aside_Item-NavLink:hover {
   color: orange;
 }
 
-.Aside_Item:hover p {
+.Aside_Item-NavLink:hover p {
   border-bottom: 2px #07b solid;
   display: inline-block;
 }
