@@ -49,7 +49,7 @@ Card.propTypes = {
 }
 
 Card.defaultProps = {
-  postId: 0,
+  postId: '',
   author: '',
   title: '',
   body: '',

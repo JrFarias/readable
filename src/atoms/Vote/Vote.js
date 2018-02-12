@@ -3,7 +3,6 @@ import Proptypes from 'prop-types'
 import './Vote.css'
 
 export default class Vote extends PureComponent {
-
   render() {
     const { voteScore, postId } = this.props
     const { upVote, downVote } = this.props.actions
@@ -57,7 +56,7 @@ Vote.propTypes = {
 
 Vote.defaultProps = {
   voteScore: 0,
-  postId: 0,
+  postId: '',
   actions: {}
 }
 
