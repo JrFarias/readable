@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import Proptypes from 'prop-types'
+import PropTypes from 'prop-types'
 import './Vote.css'
 
 export default class Vote extends PureComponent {
@@ -49,9 +49,12 @@ export default class Vote extends PureComponent {
 }
 
 Vote.propTypes = {
-  voteScore: Proptypes.number,
-  postId: Proptypes.string,
-  actions: Proptypes.object
+  voteScore: PropTypes.number,
+  postId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  actions: PropTypes.object
 }
 
 Vote.defaultProps = {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Loading from 'react-loading'
-import Card from '../Card/Card'
+import Card from '../../molecules/Card/Card'
 import './Post.css'
 
 export default class Post extends PureComponent {

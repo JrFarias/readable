@@ -1,0 +1,13 @@
+.FormGroup {
+  margin-bottom: 1em;
+}
+
+.FormGroup input {
+  border: 1px #07b solid;
+  border-radius: 2px;
+  outline: none;
+}
+
+.FormGroup input:focus {
+  border: 1px orange solid;
+}

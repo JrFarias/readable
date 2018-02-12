@@ -39,7 +39,10 @@ const Card = ({
 )
 
 Card.propTypes = {
-  postId: PropTypes.string,
+  postId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   author: PropTypes.string,
   title: PropTypes.string,
   body: PropTypes.string,

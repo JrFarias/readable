@@ -17,6 +17,18 @@ fetch(`${api}/${category}/posts`, { headers })
   .then(res => res.json())
   .then(data => data)
 
+export const createPostAPI = (post) => {
+  const params = {
+    method: 'POST',
+    body:  JSON.stringify(post) ,
+    headers
+  };
+
+  return fetch(`${api}/posts`, params)
+  .then(res => res.json())
+  .then(data => data)
+}
+
 export const getPostAPI = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())

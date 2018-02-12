@@ -9,7 +9,9 @@ import posts, {
   DOWN_VOTE,
   downVoteSaga,
   GET_POST_BY_CATEGORY,
-  getPostByCategorySaga
+  getPostByCategorySaga,
+  CREATE_POST_START,
+  createPostSaga,
 } from '../ducks/Post/PostReducer'
 
 export const rootReducer = combineReducers({
@@ -23,6 +25,7 @@ export function *rootSaga() {
     takeEvery(GET_POSTS_SAGA, getPostsSaga),
     takeEvery(UP_VOTE ,upVoteSaga),
     takeEvery(DOWN_VOTE, downVoteSaga),
-    takeEvery(GET_POST_BY_CATEGORY, getPostByCategorySaga)
+    takeEvery(GET_POST_BY_CATEGORY, getPostByCategorySaga),
+    takeEvery(CREATE_POST_START, createPostSaga)
   ];
 }

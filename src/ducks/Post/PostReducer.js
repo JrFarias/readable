@@ -1,5 +1,10 @@
 import { put } from 'redux-saga/effects'
-import { getPostAPI, voteAPI, getPostByCategoryAPI } from '../../util/Api'
+import {
+  getPostAPI,
+  voteAPI,
+  getPostByCategoryAPI,
+  createPostAPI
+} from '../../util/Api'
 
 export const GET_POSTS_SAGA = 'GET_POSTS_SAGA'
 const GET_POSTS_START = 'GET_POSTS_START'
@@ -13,6 +18,9 @@ const DOWN_VOTE_COMPLETED = 'DOWN_VOTE_COMPLETED'
 
 export const GET_POST_BY_CATEGORY = 'GET_POST_BY_CATEGORY'
 const GET_POST_BY_CATEGORY_COMPLETED = 'GET_POST_BY_CATEGORY_COMPLETED'
+
+export const CREATE_POST_START = 'CREATE_POST_START'
+const CREATE_POST_START_COMPLETED = 'CREATE_POST_START_COMPLETED'
 
 export const getPosts = (post) => ({
   type: GET_POSTS_SAGA,
@@ -34,6 +42,10 @@ export const getPostByCategory = (category) => ({
   payload: category
 })
 
+export const createPost = (post) => ({
+  type: CREATE_POST_START,
+  payload: post
+})
 
 export const initialState = {
   posts: [],
@@ -90,6 +102,17 @@ export default function reducer(state = initialState, action = {}) {
         posts: payload,
         isLoading: true
       }
+    case CREATE_POST_START:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case CREATE_POST_START_COMPLETED:
+      return {
+        ...state,
+        posts: state.posts.concat([payload]),
+        isLoading: true
+      }
     default :
       return state
   }
@@ -100,6 +123,15 @@ export function *getPostsSaga({ payload }, request = getPostAPI) {
     yield put({ type: GET_POSTS_START, payload })
     const posts = yield request()
     yield put({ type: GET_POSTS_COMPLETED, payload: posts })
+  } catch (error) {
+    ///
+  }
+}
+
+export function *createPostSaga({ payload }, request = createPostAPI) {
+  try {
+    const post = yield request(payload)
+    yield put({ type: CREATE_POST_START_COMPLETED, payload: post })
   } catch (error) {
     ///
   }

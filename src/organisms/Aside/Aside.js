@@ -15,11 +15,14 @@ export default class Aside extends PureComponent {
 
     return (
       <ul className="Aside_Menu">
-        <li
-          className="Aside_Item"
-          onClick={() => getPosts()}
-        >
-          <p>Home</p>
+        <li className="Aside_Item">
+          <NavLink
+            className="Aside_Item-NavLink"
+            onClick={() => getPosts()}
+            to="/"
+          >
+            <p>Home</p>
+          </NavLink>
         </li>
         {isLoading === true && categories.length === 0
         ? <Loading delay={200} type='spin' color='#222' className='loading' />
