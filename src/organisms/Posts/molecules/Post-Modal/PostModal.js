@@ -11,23 +11,40 @@ export default class PostModal extends PureComponent {
     Modal.setAppElement('body');
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { post } = nextProps.postModal
+    if (post && post.postId) {
+      this.setState({
+        id: post.postId,
+        author: post.author,
+        title: post.title,
+        body: post.body,
+        category: post.category,
+        timestamp: post.timestamp,
+        isEditable: true
+      })
+    } else {
+      this.setState({
+        id: Math.floor((Math.random() * 10000)),
+        author: '',
+        title: '',
+        body: '',
+        category: 'react',
+        timestamp: Date.now(),
+        isEditable: false
+      })
+    }
+  }
+
   state = {
-    modalIsOpen: false,
     id: Math.floor((Math.random() * 10000)),
     author: '',
     title: '',
     body: '',
     category: 'react',
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    isEditable: false
   };
-
-  openModal() {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
 
   onChangeHandler(e, stateField) {
     return this.setState({
@@ -37,36 +54,45 @@ export default class PostModal extends PureComponent {
 
   submit(e) {
     e.preventDefault()
-    this.props.actions.createPost(this.state)
-    this.closeModal()
+    if(this.state.isEditable) {
+      this.props.actions.editPost(this.state)
+    }
+    else {
+      this.props.actions.createPost(this.state)
+    }
+    this.props.actions.closeModal()
   }
 
+
   render() {
-    const { categories, isLoading } = this.props
-    const { modalIsOpen, author, title, body, category } = this.state
+    const { categories, isLoading, postModal } = this.props
+    const {openModal, closeModal, deletePost } = this.props.actions
+
+    const modalIsOpen = postModal.isOpenModal
+    const {id, author, title, body, category, isEditable } = this.state
 
     return (
       <div>
-        <button className="PostModal__Add" onClick={() => this.openModal()}>
+        <button className="PostModal__Add" onClick={() => openModal()}>
           <PlusIcon size={30} />
         </button>
         <Modal
           id="Post-modal"
           className="PostModal"
           isOpen={modalIsOpen}
-          onRequestClose={() => this.closeModal()}
+          onRequestClose={() => closeModal()}
           contentLabel="Post-modal"
         >
         <div className="PostModal__Header">
           <h2 >Posts</h2>
           <button
             className="PostModal__Close"
-            onClick={() => this.closeModal()}
+            onClick={() => closeModal()}
           >
            <CloseIcon size={30}/>
           </button>
         </div>
-        <div className="PostModal__Content">
+        <div>
           <form id="PostModalForm" name="PostModalForm" className="container" onSubmit={(e) => this.submit(e)}>
             <FormGroup
               label="Title"
@@ -104,7 +130,14 @@ export default class PostModal extends PureComponent {
               </select>
             </div>
 
-            <button type="submit">Submit</button>
+            <div className="PostModal__Footer">
+              <button type="submit">
+                {
+                  isEditable ? 'Editar' : 'Enviar'
+                }
+              </button>
+              {isEditable ? <button onClick={() => deletePost(id)}>deletar</button> : ''}
+            </div>
           </form>
         </div>
         </Modal>
@@ -116,13 +149,21 @@ export default class PostModal extends PureComponent {
 PostModal.propTypes = {
   categories: PropTypes.array,
   isLoading: PropTypes.bool,
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  openModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  postModal: PropTypes.object,
+  posts: PropTypes.array
 }
 
 PostModal.defaultProps = {
   categories: [],
   isLoading: false,
-  actions: {}
+  actions: {},
+  openModal: () => {},
+  closeModal: () => {},
+  postModal: {},
+  posts: []
 }
 
 

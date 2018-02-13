@@ -29,6 +29,29 @@ export const createPostAPI = (post) => {
   .then(data => data)
 }
 
+export const editPostAPI = (post) => {
+  const params = {
+    method: 'PUT',
+    body:  JSON.stringify(post) ,
+    headers
+  };
+
+  return fetch(`${api}/posts/${post.id}`, params)
+  .then(res => res.json())
+  .then(data => data)
+}
+
+export const deletePostAPI = (postId) => {
+  const params = {
+    method: 'DELETE',
+    headers
+  };
+
+  return fetch(`${api}/posts/${postId}`, params)
+  .then(res => res.json())
+  .then(data => data)
+}
+
 export const getPostAPI = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())

@@ -1,42 +1,64 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import './Card.css'
 import Vote from '../../atoms/Vote/Vote.container'
+import EditIcon from 'react-icons/lib/fa/edit'
 
-const formatDate = (date, moment) => moment(date).format('DD/MM/YYYY')
+export default class Card extends PureComponent {
+formatDate(date, moment) {
+  return moment(date).format('DD/MM/YYYY')
+}
 
-const Card = ({
-  postId,
-  author,
-  title,
-  body,
-  category,
-  timestamp,
-  voteScore,
-}) => (
-  <div id={timestamp} className="Card">
-    <div className="Card__Head">
-      <p className="Card__Head-title">{ title }</p>
-    </div>
-    <div className="Card__Content">
-      <div className="Card__Content--category col-md-4"><span>Category: </span>{ category }</div>
-      <div className="Card__Content-body col-md-6">
-      { body }
+openPostModal() {
+  const {
+    postId, author, title, body, category, timestamp
+  } = this.props
+
+  return this.props.actions.openModal({
+    postId, author, title, body, category, timestamp
+  })
+}
+
+  render() {
+    const {
+      postId,
+      author,
+      title,
+      body,
+      category,
+      timestamp,
+      voteScore
+    } = this.props
+
+    return (
+      <div id={timestamp} className="Card">
+      <div className="Card__Head">
+        <p className="Card__Head-title">
+          { title }
+          <span onClick={() => this.openPostModal()}><EditIcon size={20} /></span>
+        </p>
+      </div>
+      <div className="Card__Content">
+        <div className="Card__Content--category col-md-4"><span>Category: </span>{ category }</div>
+        <div className="Card__Content-body col-md-6">
+        { body }
+        </div>
+      </div>
+      <div className="Card__Footer">
+        <div className="Card__Footer-author"><span>Author: </span>{ author }</div>
+        <div className="Card__Footer-end">
+          <span className="Card__Foote-date">{ this.formatDate(timestamp, moment) }</span>
+          <Vote
+            postId={postId}
+            voteScore={voteScore}
+          />
+        </div>
       </div>
     </div>
-    <div className="Card__Footer">
-      <div className="Card__Footer-author"><span>Author: </span>{ author }</div>
-      <div className="Card__Footer-end">
-        <span className="Card__Foote-date">{ formatDate(timestamp, moment) }</span>
-        <Vote
-          postId={postId}
-          voteScore={voteScore}
-        />
-      </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
 
 Card.propTypes = {
   postId: PropTypes.oneOfType([
@@ -49,6 +71,7 @@ Card.propTypes = {
   category: PropTypes.string,
   timestamp: PropTypes.number,
   voteScore: PropTypes.number,
+  actions: PropTypes.object
 }
 
 Card.defaultProps = {
@@ -59,6 +82,5 @@ Card.defaultProps = {
   category: '',
   timestamp: 0,
   voteScore: 0,
+  actions: {}
 }
-
-export default Card

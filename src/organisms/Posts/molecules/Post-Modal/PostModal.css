@@ -2,7 +2,7 @@
   background-color: #fff;
   border: 1px solid #07b;
   border-radius: 2px;
-  bottom: 300px;
+  bottom: 240px;
   font-size: 14px;
   left: 100px;
   outline: none;
@@ -11,6 +11,24 @@
   position: absolute;
   right: 100px;
   top: 40px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .PostModal {
+    background-color: #fff;
+    border: 1px solid #07b;
+    border-radius: 2px;
+    bottom: 260px;
+    font-size: 14px;
+    left: 10px;
+    outline: none;
+    overflow: auto;
+    padding: 0px 20px 20px 20px;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+  }
 }
 
 .PostModal__Close {
@@ -35,6 +53,15 @@
   justify-content: space-between;
 }
 
-.PostModal__Content {
+.PostModal__Footer {
+  display: flex;
+  justify-content: space-between;
+}
 
+.PostModal__Footer button {
+  background-color: #fff;
+  border: 2px #07b solid;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: bold;
 }

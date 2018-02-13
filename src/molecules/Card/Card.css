@@ -16,9 +16,11 @@ span {
 }
 
 .Card__Head-title {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
   margin: 0.0625em;
 }
+
 
 .Card__Content {
   background-color: #eee;
