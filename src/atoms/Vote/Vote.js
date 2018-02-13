@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import './Vote.css'
+import Like from 'react-icons/lib/fa/thumbs-up'
+import DontLike from 'react-icons/lib/fa/thumbs-down'
 
 export default class Vote extends PureComponent {
   render() {
@@ -17,13 +19,15 @@ export default class Vote extends PureComponent {
             className="Vote__positive"
             onClick={() => upVote(postId)}
           >
+          <Like size={10} />
             {voteValue}
           </button>
           <button
             className="Vote__negative"
             onClick={() => downVote(postId)}
           >
-            {voteScore}
+          <DontLike size={10}/>
+            {Math.abs(voteScore)}
           </button>
         </div>
       )
@@ -35,13 +39,15 @@ export default class Vote extends PureComponent {
           className="Vote__positive"
           onClick={() => upVote(postId)}
         >
+        <Like size={10} />
           {voteScore}
         </button>
         <button
           className="Vote__negative"
           onClick={() => downVote(postId)}
         >
-          {voteValue}
+        <DontLike size={10}/>
+          {Math.abs(voteValue)}
         </button>
       </div>
     )
