@@ -6,13 +6,13 @@ import reducer, {
 describe('Categories Ducks', () => {
   describe('Categories Reducer', () => {
     describe('getCategories', () => {
-      it('should return the initial state', () => {
+      test('should return the initial state', () => {
         const state = reducer(initialState);
 
         expect(state).toEqual(initialState);
       });
 
-      it('should set to loading when getCategories starts', () => {
+      test('should set to loading when getCategories starts', () => {
         const action = {
           type: 'GET_CATEGORIES_START',
         };
@@ -21,17 +21,7 @@ describe('Categories Ducks', () => {
         expect(state.isLoading).toBeTruthy();
       });
 
-      it('should set to not loading when getCurrencies fails', () => {
-        const action = {
-          type: 'beecambio/currency/GET_CURRENCIES_FAILED',
-          payload: [],
-        };
-        const state = reducer(initialState, action);
-
-        expect(state.loading).toBeFalsy();
-      });
-
-      it('should set to not loading when getCategories completes', () => {
+      test('should set to not loading when getCategories completes', () => {
         const action = {
           type: 'GET_CATEGORIES_COMPLETED',
           payload: [],
@@ -41,7 +31,7 @@ describe('Categories Ducks', () => {
         expect(state.loading).toBeFalsy();
       });
 
-      it('should return the currencies when getCurrencies completes', () => {
+      test('should return the categories when getCategories completes', () => {
         const expectedPayload = [{ name: 'react' }];
         const action = {
           type: 'GET_CATEGORIES_COMPLETED',
@@ -57,7 +47,7 @@ describe('Categories Ducks', () => {
 
   describe('Action Creators', () => {
     describe('getCategoriesSaga', () => {
-      it('should build a GET_CATEGORIES_START & GET_CATEGORIES_COMPLETED action', async () => {
+      test('should build a GET_CATEGORIES_START & GET_CATEGORIES_COMPLETED action', async () => {
         const payload = {};
         const getCategoriesAPI = () => [{ name: 'react' }]
         const gen = getCategoriesSaga({ payload }, getCategoriesAPI);

@@ -43,3 +43,4 @@ export function *getCategoriesSaga({ payload }, getCategoriesApi = getCategories
     ///
   }
 }
+

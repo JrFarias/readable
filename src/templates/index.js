@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './template.css'
+import './bootstrap-grid.min.css'
 
 const Template = ({
   header,

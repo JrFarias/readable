@@ -1,0 +1,82 @@
+.CommentsModal {
+  background-color: #fff;
+  border: 1px solid #07b;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  left: 20px;
+  max-height: 90%;
+  outline: none;
+  overflow: hidden;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .CommentsModal {
+    left: 20px;
+    right: 20px;
+  }
+}
+
+.CommentModal__Header {
+  align-items: center;
+  background-color: #eee;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.CommentModal__Content {
+  overflow-x: unset;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.CommentModal__Content-Item {
+  background-color: #fff;
+  margin: 10px;
+  border: 1px #07b solid;
+  border-radius: 2px;
+}
+
+.CommentModal__Content-Body {
+  background-color: #eee;
+}
+
+.CommentModal__Content-Author {
+  background-color: #eee;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CommentModal__Content span {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.CommentModal__Content p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.CommentModal__Content input {
+  border: none;
+}
+
+.CommentModal__Close {
+  border: 0;
+  padding: 0;
+  border-radius: 3em;
+}
+
+.CommentModal__Footer {
+  align-self: center;
+  background-color: #eee;
+  padding: 10px 20px;
+  width: 100%;
+}
