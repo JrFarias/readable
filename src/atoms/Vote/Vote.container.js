@@ -2,9 +2,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Vote from './Vote'
 import { upVote, downVote } from '../../ducks/Post/PostReducer'
+import { upVoteComment, downVoteComment } from '../../ducks/CommentModal/CommentModalReducer'
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ upVote, downVote }, dispatch)
+  actions: bindActionCreators({ upVote, downVote, upVoteComment, downVoteComment }, dispatch)
 })
 
 const  mapStateToProps = state => ({

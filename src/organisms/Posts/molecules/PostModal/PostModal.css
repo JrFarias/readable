@@ -16,18 +16,9 @@
 
 @media screen and (max-width: 800px) {
   .PostModal {
-    background-color: #fff;
-    border: 1px solid #07b;
-    border-radius: 2px;
     bottom: 260px;
-    font-size: 14px;
     left: 10px;
-    outline: none;
-    overflow: auto;
-    padding: 0px 20px 20px 20px;
-    position: absolute;
     right: 10px;
-    top: 40px;
   }
 }
 

@@ -25,7 +25,7 @@ export default class PostModal extends PureComponent {
       })
     } else {
       this.setState({
-        id: Math.floor((Math.random() * 10000)),
+        id: `${Math.floor((Math.random() * 10000))}`,
         author: '',
         title: '',
         body: '',
@@ -37,7 +37,7 @@ export default class PostModal extends PureComponent {
   }
 
   state = {
-    id: Math.floor((Math.random() * 10000)),
+    id: `${Math.floor((Math.random() * 10000))}`,
     author: '',
     title: '',
     body: '',
@@ -165,11 +165,3 @@ PostModal.defaultProps = {
   postModal: {},
   posts: []
 }
-
-
-// id - UUID should be fine, but any unique id will work
-// timestamp - timestamp in whatever format you like, you can use Date.now() if you like
-// title - String
-// body - String
-// author - String
-// category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.

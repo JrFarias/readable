@@ -4,6 +4,7 @@ import moment from 'moment'
 import './Card.css'
 import Vote from '../../atoms/Vote/Vote.container'
 import EditIcon from 'react-icons/lib/fa/edit'
+import CommentIcon from 'react-icons/lib/fa/comments'
 
 export default class Card extends PureComponent {
 formatDate(date, moment) {
@@ -21,15 +22,11 @@ openPostModal() {
 }
 
   render() {
-    const {
-      postId,
-      author,
-      title,
-      body,
-      category,
-      timestamp,
-      voteScore
+    const { postId, author, title, body, category, timestamp, voteScore
     } = this.props
+
+    const { openCommentModal } = this.props.actions
+
 
     return (
       <div id={timestamp} className="Card">
@@ -47,6 +44,7 @@ openPostModal() {
       </div>
       <div className="Card__Footer">
         <div className="Card__Footer-author"><span>Author: </span>{ author }</div>
+        <div onClick={() => openCommentModal(postId)}><CommentIcon size={20}/> Comment</div>
         <div className="Card__Footer-end">
           <span className="Card__Foote-date">{ this.formatDate(timestamp, moment) }</span>
           <Vote
