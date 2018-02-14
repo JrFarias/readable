@@ -32,7 +32,7 @@ describe('Post component', () => {
     expect(wrapper.find('Loading').length).toBe(1)
   })
 
-  test('should render component Card', () => {
+  test('should render component', () => {
     const props = {
       posts: [],
       isLoading: false,
@@ -55,5 +55,4 @@ describe('Post component', () => {
     expect(wrapper.props().actions).toBe(props.actions)
     expect(wrapper.find('Post').length).toBe(1)
   })
-
 })

@@ -9,7 +9,7 @@ import {
 } from '../../util/Api'
 
 export const GET_POSTS_SAGA = 'GET_POSTS_SAGA'
-const GET_POSTS_START = 'GET_POSTS_START'
+export const GET_POSTS_START = 'GET_POSTS_START'
 const GET_POSTS_COMPLETED = 'GET_POSTS_COMPLETED'
 
 export const UP_VOTE = 'UP_VOTE'

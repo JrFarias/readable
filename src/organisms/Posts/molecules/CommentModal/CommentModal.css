@@ -1,4 +1,4 @@
-.CommentsModal {
+.CommentModal {
   background-color: #fff;
   border: 1px solid #07b;
   border-radius: 2px;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .CommentsModal {
+  .CommentModal {
     left: 20px;
     right: 20px;
   }
@@ -44,6 +44,8 @@
 
 .CommentModal__Content-Body {
   background-color: #eee;
+  display: flex;
+  justify-content: space-between;
 }
 
 .CommentModal__Content-Author {

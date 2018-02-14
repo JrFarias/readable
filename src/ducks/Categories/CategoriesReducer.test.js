@@ -47,7 +47,7 @@ describe('Categories Ducks', () => {
 
   describe('Action Creators', () => {
     describe('getCategoriesSaga', () => {
-      test('should build a GET_CATEGORIES_START & GET_CATEGORIES_COMPLETED action', async () => {
+      test('should build a GET_CATEGORIES_START & GET_CATEGORIES_COMPLETED action', () => {
         const payload = {};
         const getCategoriesAPI = () => [{ name: 'react' }]
         const gen = getCategoriesSaga({ payload }, getCategoriesAPI);

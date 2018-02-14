@@ -66,8 +66,8 @@ export default class CommentModal extends PureComponent {
 
     return (
       <Modal
-        id="CommentsModal"
-        className="CommentsModal"
+        id="CommentModalId"
+        className="CommentModal"
         isOpen={isOpenModal}
         onRequestClose={() => closeModal()}
         contentLabel="Post-modal"
@@ -94,9 +94,11 @@ export default class CommentModal extends PureComponent {
                 value={comment.body}
                 disabled={true}
               />
-              <EditIcon size={20} onClick={() => this.edit(comment.id)} />
-              <ExcludeIcon size={20} onClick={() => deleteComment(comment.id)} />
             </p>
+            <span>
+            <EditIcon size={20} onClick={() => this.edit(comment.id)} />
+            <ExcludeIcon size={20} onClick={() => deleteComment(comment.id)} />
+            </span>
           </div>
           <div className="CommentModal__Content-Author">
             <span>Author:
@@ -149,33 +151,35 @@ export default class CommentModal extends PureComponent {
 }
 
 CommentModal.propTypes = {
-  actions: PropTypes.object,
-  commentModal: PropTypes.object,
-  isLoading: PropTypes.bool
+  actions: PropTypes.shape({
+    closeModal: PropTypes.func,
+    deleteComment: PropTypes.func,
+    editComment: PropTypes.func,
+    createComment: PropTypes.func
+  }),
+  commentModal: PropTypes.shape({
+    comments: PropTypes.array,
+    isOpenModal: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    postId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ])
+  }),
 }
 
 
-// author
-// :
-// "thingtwo"
-// body
-// :
-// "Hi there! I am a COMMENT."
-// deleted
-// :
-// false
-// id
-// :
-// "894tuq4ut84ut8v4t8wun89g"
-// parentDeleted
-// :
-// false
-// parentId
-// :
-// "8xf0y6ziyjabvozdd253nd"
-// timestamp
-// :
-// 1468166872634
-// voteScore
-// :
-// 6
+CommentModal.defaultProps = {
+  actions: {
+    closeModal: () => {},
+    deleteComment: () => {},
+    editComment: () => {},
+    createComment: () => {},
+  },
+  commentModal: {
+    comments: [],
+    isOpenModal: false,
+    isLoading: false,
+    postId: ''
+  },
+}

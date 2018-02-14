@@ -15,7 +15,7 @@ export const CREATE_COMMENT_START = 'CREATE_COMMENT_START'
 const CREATE_COMMENT_COMPLETED = 'CREATE_COMMENT_COMPLETED'
 
 export const EDIT_COMMENT_START = 'EDIT_COMMENT_START'
-const EDIT_COMMENT_COMPLETED = 'EDIT_COMMENT_ COMPLETED'
+const EDIT_COMMENT_COMPLETED = 'EDIT_COMMENT_COMPLETED'
 
 export const DELETE_COMMENT_START = 'DELETE_COMMENT_START'
 const DELETE_COMMENT_COMPLETED = 'DELETE_COMMENT_COMPLETED'
@@ -175,7 +175,6 @@ export function *editCommentSaga({ payload }, request = editCommentAPI) {
   }
 }
 
-
 export function *deleteCommentSaga({ commentId }, request = deleteCommentAPI) {
   try {
     yield request(commentId)
@@ -184,7 +183,6 @@ export function *deleteCommentSaga({ commentId }, request = deleteCommentAPI) {
     ///
   }
 }
-
 
 export function *upVoteCommentSaga({ commentId }, request = voteCommentAPI) {
   try {

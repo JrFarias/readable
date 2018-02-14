@@ -25,6 +25,7 @@ describe('Vote component', () => {
         actions={props.actions}
       />
     )
+    const defaultVoteScore = '0';
 
     expect(wrapper).toBeTruthy()
     expect(wrapper.props().postId).toEqual(props.postId)
@@ -32,32 +33,36 @@ describe('Vote component', () => {
     expect(wrapper.props().actions).toEqual(props.actions)
     expect(wrapper.find('.Vote__positive').simulate('click').length).toEqual(1)
     expect(wrapper.find('.Vote__negative').simulate('click').length).toEqual(1)
+    expect(wrapper.find('.Vote__positive').text()).toEqual(`${props.voteScore}`)
+    expect(wrapper.find('.Vote__negative').text()).toEqual(defaultVoteScore)
   })
 
-  test('should render with voteScore positive', () => {
+  test('should render with prop commentId', () => {
     const props = {
       voteScore: 5,
-      postId: '123',
+      commentId: '123',
       actions: {
-        upVote: () => {},
-        downVote: () => {}
+        upVoteComment: () => {},
+        downVoteComment: () => {}
       }
     }
-    const defaultVoteScore = '0';
 
     const wrapper = mount(
       <Vote
+        commentId={props.commentId}
         voteScore={props.voteScore}
-        postId={props.postId}
         actions={props.actions}
       />
     )
+    const defaultVoteScore = '0';
 
     expect(wrapper).toBeTruthy()
+    expect(wrapper.props().commentId).toEqual(props.commentId)
     expect(wrapper.props().voteScore).toEqual(props.voteScore)
-    expect(wrapper.props().postId).toEqual(props.postId)
+    expect(wrapper.props().actions).toEqual(props.actions)
+    expect(wrapper.find('.Vote__positive').simulate('click').length).toEqual(1)
+    expect(wrapper.find('.Vote__negative').simulate('click').length).toEqual(1)
     expect(wrapper.find('.Vote__positive').text()).toEqual(`${props.voteScore}`)
     expect(wrapper.find('.Vote__negative').text()).toEqual(defaultVoteScore)
-
   })
 })
