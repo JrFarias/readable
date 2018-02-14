@@ -1,12 +1,15 @@
 Projeto do nanoDegre da Udacity
-## Inicializando a aplicação
-- npm install
-- npm start
+## How to initialize the application
+To install and start the API server, see the read me inside api-server directory:
 
-## Rodar testes da applição
+After:
+  - npm install
+  - npm start
+
+## Run tests
 - npm test
 
-## Rodar coverage
+## run coverage
 - npm run coverage
 
 ## Structure of the project
@@ -31,14 +34,28 @@ Projeto do nanoDegre da Udacity
 │   └── test.js
 └── src
     ├── atoms
-    │   ├──
+    │   ├── FormGroup
+    │   └── Vote
+    ├── ducks
+    │   ├── Categories
+    │   └── CommentModal
+    │   └── Post
+    │   └── PostModal
+    │   └── index
     ├── molecules
-    │   ├──
+    │   ├── Card
     ├── organisms
     │   ├── Aside
-    │       └── Asside.css
-    │       └── Asside.js
-    │       └── Asside.test.js
+    │   └── Content
+    │   └── Footer
+    │   └── Header
+    │   └── Posts
+    │       ├── molecules
+    │       │   └── CommentModal
+    │       │   └── PostModal
+    │       └── Post.container
+    │       └── Post
+
     ├── pages
     │   ├── index.js
     │   └── index.test.js
@@ -46,6 +63,8 @@ Projeto do nanoDegre da Udacity
     │   ├── index.js
     │   └── template.css
     │   └── template.test.js
+    ├── util
+    │   ├── Api.js
     ├── index.css # Global styles. You probably won't need to change anything here.
     ├── logo.svg
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
