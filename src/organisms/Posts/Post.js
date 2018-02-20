@@ -5,9 +5,12 @@ import Card from '../../molecules/Card/Card.container'
 import './Post.css'
 
 export default class Post extends PureComponent {
-
   componentDidMount() {
-    this.props.actions.getPosts();
+    if (this.props.category) {
+      this.props.actions.getPostByCategory(this.props.category)
+    } else {
+      this.props.actions.getPosts();
+    }
   }
 
   render() {
@@ -37,7 +40,8 @@ export default class Post extends PureComponent {
 Post.propTypes = {
   actions: PropTypes.object,
   posts: PropTypes.array,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  category: PropTypes.string
 }
 
 Post.defaultProps =  {

@@ -18,7 +18,6 @@ import posts, {
   deletePostSaga
 } from '../ducks/Post/PostReducer'
 
-import postModal from '../ducks/PostModal/PostModalReducer'
 import commentModal, {
   COMMENT_MODAL_IS_OPEN,
   getCommentsByPostSaga,
@@ -37,7 +36,6 @@ import commentModal, {
 export const rootReducer = combineReducers({
   categories,
   posts,
-  postModal,
   commentModal
 })
 

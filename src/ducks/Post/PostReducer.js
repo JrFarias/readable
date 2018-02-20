@@ -118,7 +118,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         posts: payload,
-        isLoading: true
+        isLoading: false
       }
     case CREATE_POST_START:
       return {

@@ -1,15 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Content.css'
 import PostContainer from '../Posts/Post.container'
-import PostModalContainer from '../Posts/molecules/PostModal/PostModal.container'
 import CommentModalContainer from '../Posts/molecules/CommentModal/CommentModal.container'
 
-const Content = () => (
+const Content = ({ category }) => (
   <div className="Content">
-    <PostModalContainer />
     <CommentModalContainer />
-    <PostContainer />
+    <PostContainer category={category} />
   </div>
 )
+
+Content.propTypes = {
+  category: PropTypes.string
+}
 
 export default Content

@@ -1,15 +1,11 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Card from './Card'
-import { openModal } from '../../ducks/PostModal/PostModalReducer'
+import { deletePost } from '../../ducks/Post/PostReducer'
 import { openModal as openCommentModal } from '../../ducks/CommentModal/CommentModalReducer'
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ openModal, openCommentModal }, dispatch)
+  actions: bindActionCreators({ deletePost, openCommentModal }, dispatch)
 })
 
-const  mapStateToProps = state => ({
-  postModal: state.postModal
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Card)
+export default connect(null, mapDispatchToProps)(Card)

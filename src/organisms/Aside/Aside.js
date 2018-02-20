@@ -17,6 +17,7 @@ export default class Aside extends PureComponent {
       <ul className="Aside_Menu">
         <li className="Aside_Item">
           <NavLink
+            exact
             className="Aside_Item-NavLink"
             onClick={() => getPosts()}
             to="/"
@@ -33,7 +34,7 @@ export default class Aside extends PureComponent {
           >
           <NavLink
             className="Aside_Item-NavLink"
-            to={category.path}
+            to={`/${category.path}`}
             onClick={() => getPostByCategory(`${category.path}`)}
           >
             <p>{ category.name }</p>
