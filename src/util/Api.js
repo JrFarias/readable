@@ -57,6 +57,11 @@ export const getPostAPI = () =>
     .then(res => res.json())
     .then(data => data)
 
+export const getPostByIdAPI = (postId) =>
+  fetch(`${api}/posts/${postId}`, { headers })
+  .then(res => res.json())
+  .then(data => data)
+
 export const voteAPI = (postId, vote) => {
   const params = {
     method: 'POST',

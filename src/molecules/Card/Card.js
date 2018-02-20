@@ -5,6 +5,7 @@ import './Card.css'
 import Vote from '../../atoms/Vote/Vote.container'
 import EditIcon from 'react-icons/lib/fa/edit'
 import CommentIcon from 'react-icons/lib/fa/comments'
+import { Link } from 'react-router-dom';
 
 export default class Card extends PureComponent {
 formatDate(date, moment) {
@@ -26,13 +27,15 @@ openPostModal() {
     } = this.props
 
     const { openCommentModal } = this.props.actions
-
+    debugger
 
     return (
       <div id={timestamp} className="Card">
       <div className="Card__Head">
         <p className="Card__Head-title">
-          { title }
+          <Link to={`/${category}/${postId}`}>
+            <h4>{ title }</h4>
+          </Link>
           <span onClick={() => this.openPostModal()}><EditIcon size={20} /></span>
         </p>
       </div>

@@ -2,7 +2,7 @@
   background-color: #fff;
   border: 1px solid #07b;
   border-radius: 2px;
-  bottom: 240px;
+  max-height: 90%;
   font-size: 14px;
   left: 100px;
   outline: none;
