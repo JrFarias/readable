@@ -13,6 +13,10 @@ export default class Post extends PureComponent {
     }
   }
 
+  componentWillReceiveProps() {
+   this.forceUpdate()
+  }
+
   render() {
     const { posts, isLoading }  = this.props
 

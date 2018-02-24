@@ -36,7 +36,7 @@ export default class PostDetails extends PureComponent {
   getPostById(postId) {
     return getPostByIdAPI(postId)
     .then(post => {
-      if(post.error) {
+      if(!post.id) {
         this.props.history.push('/404')
 
         return
@@ -81,10 +81,14 @@ export default class PostDetails extends PureComponent {
     this.props.history.push('/')
   }
 
+  deletePost(id) {
+    this.props.actions.deletePost(id)
+    this.props.history.push('/')
+  }
+
 
   render() {
     const { categories, isLoading } = this.props
-    const { deletePost } = this.props.actions
 
     const {id, author, title, body, category, isEditable } = this.state
 
@@ -132,7 +136,7 @@ export default class PostDetails extends PureComponent {
               isEditable ? 'Editar' : 'Enviar'
             }
           </Button>
-          {isEditable ? <Button bsSize="danger" onClick={() => deletePost(id)}>deletar</Button> : ''}
+          {isEditable ? <Button bsSize="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
         </div>
       </form>
     )

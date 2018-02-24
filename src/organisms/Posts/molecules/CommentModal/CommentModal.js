@@ -60,6 +60,7 @@ export default class CommentModal extends PureComponent {
   }
 
   render() {
+    Modal.setAppElement('body');
     const { isLoading, isOpenModal, comments } = this.props.commentModal
     const { closeModal, deleteComment } = this.props.actions
     const { author, body } = this.state
