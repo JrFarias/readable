@@ -40,7 +40,6 @@ After:
     │   ├── Categories
     │   └── CommentModal
     │   └── Post
-    │   └── PostModal
     │   └── index
     ├── molecules
     │   ├── Card
@@ -52,7 +51,7 @@ After:
     │   └── Posts
     │       ├── molecules
     │       │   └── CommentModal
-    │       │   └── PostModal
+    │       │   └── PostDetails
     │       └── Post.container
     │       └── Post
 
