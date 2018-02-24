@@ -18,6 +18,8 @@ export default class PostDetails extends PureComponent {
         timestamp: post.timestamp,
         isEditable: true
       })
+    } else if(postId) {
+      this.getPostById(postId)
     } else {
       this.setState({
         id: `${Math.floor((Math.random() * 10000))}`,
@@ -29,8 +31,6 @@ export default class PostDetails extends PureComponent {
         isEditable: false
       })
     }
-
-    this.getPostById(postId)
   }
 
   getPostById(postId) {
@@ -74,12 +74,11 @@ export default class PostDetails extends PureComponent {
     e.preventDefault()
     if(this.state.isEditable) {
       this.props.actions.editPost(this.state)
-      this.props.history.push('/')
-
     }
     else {
       this.props.actions.createPost(this.state)
     }
+    this.props.history.push('/')
   }
 
 
@@ -158,5 +157,5 @@ PostDetails.defaultProps = {
   openModal: () => {},
   closeModal: () => {},
   post: {},
-  postId: {}
+  postId: ''
 }

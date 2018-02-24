@@ -8,7 +8,9 @@ import Footer from '../organisms/Footer/Footer'
 import PostDetails from '../organisms/Posts/molecules/PostDetails/PostDetails.container'
 import NotFound from '../atoms/NotFound/NotFound'
 
-const index = () => (
+const index = () => {
+
+  return (
   <Switch>
     <Route
       exact
@@ -30,6 +32,19 @@ const index = () => (
           header={<Header />}
           aside={<Aside />}
           content={<NotFound />}
+          footer={<Footer />}
+        />
+        )
+      }
+    />
+    <Route
+      exact
+      path="/post/add"
+      render={() => (
+          <Template
+          header={<Header />}
+          aside={<Aside />}
+          content={<PostDetails />}
           footer={<Footer />}
         />
         )
@@ -62,5 +77,6 @@ const index = () => (
     />
   </Switch>
 )
+}
 
 export default withRouter(index);

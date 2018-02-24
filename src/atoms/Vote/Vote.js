@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import './Vote.css'
+import { Button } from 'react-bootstrap'
 import Like from 'react-icons/lib/fa/thumbs-up'
 import DontLike from 'react-icons/lib/fa/thumbs-down'
 
@@ -27,40 +27,44 @@ export default class Vote extends PureComponent {
     if (Math.sign(voteScore) === NEGATIVE_NUMBER) {
       return (
         <div className="Vote">
-          <button
+          <Button
+            bsSize="small"
             className="Vote__positive"
             onClick={() => this.upVote(id)}
           >
-          <Like size={10} />
+          <Like size={10} color="#07b" />
             {voteValue}
-          </button>
-          <button
+          </Button>
+          <Button
+            bsSize="small"
             className="Vote__negative"
             onClick={() => this.downVote(id)}
           >
-          <DontLike size={10}/>
+          <DontLike size={10} color="red" />
             {Math.abs(voteScore)}
-          </button>
+          </Button>
         </div>
       )
     }
 
     return (
       <div className="Vote">
-        <button
+        <Button
+          bsSize="small"
           className="Vote__positive"
           onClick={() => this.upVote(id)}
         >
-        <Like size={10} />
+        <Like size={10} color="#07b" />
           {voteScore}
-        </button>
-        <button
+        </Button>
+        <Button
+          bsSize="small"
           className="Vote__negative"
           onClick={() => this.downVote(id)}
         >
-        <DontLike size={10}/>
+        <DontLike size={10} color="red" />
           {Math.abs(voteValue)}
-        </button>
+        </Button>
       </div>
     )
   }

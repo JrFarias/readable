@@ -23,9 +23,9 @@ export default class Card extends PureComponent {
       <div className="Card__Head">
         <p className="Card__Head-title">
           <Link to={`/${category}/${postId}`}>
-            <h4>{ title }</h4>
+            { title }
           </Link>
-          <span onClick={() => deletePost()}><ExcludeIcon size={20} /></span>
+          <span onClick={() => deletePost(postId)}><ExcludeIcon size={20} /></span>
         </p>
       </div>
       <div className="Card__Content">
