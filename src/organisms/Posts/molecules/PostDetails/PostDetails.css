@@ -1,0 +1,16 @@
+.PostDetails {
+  background-color: #fff;
+  padding: 30px;
+}
+
+
+
+.PostDetails__FormGroup {
+  margin-bottom: 1em;
+}
+
+
+.PostDetails__Footer {
+  display: flex;
+  justify-content: space-between;
+}

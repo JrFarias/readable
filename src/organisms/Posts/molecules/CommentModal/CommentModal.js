@@ -5,6 +5,7 @@ import CloseIcon from 'react-icons/lib/fa/times-circle'
 import EditIcon from 'react-icons/lib/fa/edit'
 import ExcludeIcon from 'react-icons/lib/fa/close'
 import Loading from 'react-loading'
+import { Button, Panel, ControlLabel, FormControl, Grid, Row, Col, ButtonGroup, Form } from 'react-bootstrap'
 import Vote from '../../../../atoms/Vote/Vote.container'
 import './CommentModal.css'
 
@@ -58,8 +59,8 @@ export default class CommentModal extends PureComponent {
     this.setState(newState)
   }
 
-
   render() {
+    Modal.setAppElement('body');
     const { isLoading, isOpenModal, comments } = this.props.commentModal
     const { closeModal, deleteComment } = this.props.actions
     const { author, body } = this.state
@@ -72,79 +73,95 @@ export default class CommentModal extends PureComponent {
         onRequestClose={() => closeModal()}
         contentLabel="Post-modal"
       >
-      <div className="CommentModal__Header">
-        <h2>Comments</h2>
-        <button
-          className="CommentModal__Close"
-          onClick={() => closeModal()}
-        >
-         <CloseIcon size={30}/>
-        </button>
-      </div>
-
-      <div className="CommentModal__Content">
-      {isLoading === true && comments.length === 0
-       ? <Loading delay={200} type='spin' color='#222' className='loading' />
-       : comments.map(comment => (
-         <div id={comment.id} key={comment.id} className="CommentModal__Content-Item">
-          <div className="CommentModal__Content-Body">
-            <p><span>Message:</span>
-              <input
+        <Panel bsStyle="primary">
+          <Panel.Heading className="CommentModal__Header">
+            <Panel.Title componentClass="h3"> Comments</Panel.Title>
+              <CloseIcon size={20} onClick={() => closeModal()}/>
+            </Panel.Heading>
+        <Panel.Body className="CommentModal__Content">
+        {isLoading === true && comments.length === 0
+        ? <Loading delay={200} type='spin' color='#222' className='loading' />
+        : comments.map(comment => (
+          <Grid id={comment.id} key={comment.id} >
+            <Row color="primary">
+              <Col xs={8} sm={8} md={8}>
+                <ControlLabel bsStyle="primary">Message:</ControlLabel>
+              </Col>
+              <Col xs={4} sm={4} md={4}>
+                <ControlLabel bsStyle="primary">Author:</ControlLabel>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8} sm={8} md={8}>
+                <FormControl
+                  bsSize="small"
+                  type="text"
+                  value={comment.body}
+                  disabled={true}
+                />
+              </Col>
+              <Col xs={4} sm={4} md={4}>
+                <FormControl
+                    type="text"
+                    bsSize="small"
+                    value={comment.author}
+                    disabled={true}
+                    onChange={(e) => this.onChangeHandler(e, 'author')}
+                  />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} sm={12} md={12}>
+                <ButtonGroup className="CommentModal__ButtonGroup">
+                  <Button bsSize="small" onClick={() => this.edit(comment.id)}>
+                    <EditIcon size={10} />
+                  </Button>
+                  <Button bsSize="small" onClick={() => deleteComment(comment.id)}>
+                    <ExcludeIcon size={10} color="red" />
+                  </Button>
+                  <Vote
+                    commentId={comment.id}
+                    voteScore={comment.voteScore}
+                  />
+                </ButtonGroup>
+              </Col>
+            </Row>
+          </Grid>
+          ))
+        }
+        </Panel.Body>
+        <Panel.Footer>
+          <Form inline id="CommentModalForm" name="CommentModalForm" onSubmit={(e) => this.submit(e)}>
+            <Row>
+              <Col xs={6} sm={6} md={5}>
+            <ControlLabel bsStyle="primary" htmlFor="commentModalAuthor">Author:</ControlLabel>
+              <FormControl
+                id='commentModalAuthor'
+                name='author'
                 type="text"
-                value={comment.body}
-                disabled={true}
-              />
-            </p>
-            <span>
-            <EditIcon size={20} onClick={() => this.edit(comment.id)} />
-            <ExcludeIcon size={20} onClick={() => deleteComment(comment.id)} />
-            </span>
-          </div>
-          <div className="CommentModal__Content-Author">
-            <span>Author:
-              <input
-                type="text"
-                value={comment.author}
-                disabled={true}
+                bsSize="small"
+                value={author}
                 onChange={(e) => this.onChangeHandler(e, 'author')}
               />
-            </span>
-            <Vote
-              commentId={comment.id}
-              voteScore={comment.voteScore}
-            />
-          </div>
-         </div>
-        ))
-      }
-
-      </div>
-      <div className="CommentModal__Footer">
-        <form id="CommentModalForm" name="CommentModalForm" className="container" onSubmit={(e) => this.submit(e)}>
-          <div className=" row">
-            <label htmlFor="commentModalAuthor" className="col-sm-2 col-md-2">Author:</label>
-            <input
-              className="col-sm-2 col-md-2"
-              id='commentModalAuthor'
-              name='author'
-              type="text"
-              value={author}
-              onChange={(e) => this.onChangeHandler(e, 'author')}
-            />
-
-            <label htmlFor="commentModalBody" className="col-sm-2 col-md-2">Message:</label>
-              <input
-                className="col-sm-4 col-md-4"
-                id='commentModalBody'
-                name='body'
-                type="text"
-                value={body}
-                onChange={(e) => this.onChangeHandler(e, 'body')}
-              />
-            <button className="col-sm-2 col-md-2" type="submit">Enviar</button>
-          </div>
-        </form>
-      </div>
+              </Col>
+              <Col xs={6} sm={6} md={5}>
+              <ControlLabel bsStyle="primary" htmlFor="commentModalBody">Message:</ControlLabel>
+                <FormControl
+                  id='commentModalBody'
+                  name='body'
+                  bsSize="small"
+                  type="text"
+                  value={body}
+                  onChange={(e) => this.onChangeHandler(e, 'body')}
+                />
+              </Col>
+              <Col xs={12} sm={12} md={2}>
+              <Button bsStyle="primary" block type="submit">Enviar</Button>
+              </Col>
+            </Row>
+          </Form>
+          </Panel.Footer>
+        </Panel>
       </Modal>
     )
   }
@@ -167,7 +184,6 @@ CommentModal.propTypes = {
     ])
   }),
 }
-
 
 CommentModal.defaultProps = {
   actions: {

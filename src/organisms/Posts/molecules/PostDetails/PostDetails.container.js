@@ -1,24 +1,19 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 import PostDetails from './PostDetails'
 import { createPost, editPost, deletePost } from '../../../../ducks/Post/PostReducer'
-import { closeModal } from '../../../../ducks/PostModal/PostModalReducer'
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     createPost,
     editPost,
-    deletePost,
-    closeModal
+    deletePost
   }, dispatch)
 })
 
-const  mapStateToProps = state => {
+const  mapStateToProps = state => ({
+  categories: state.categories.categories
+})
 
-  return {
-  post: state.postModal.post,
-  categories: state.categories.categories,
-  isLoading: state.postModal.isLoading,
-}}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetails)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails))

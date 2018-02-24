@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Loading from 'react-loading'
 import PropTypes from 'prop-types'
 import './Aside.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default class Aside extends PureComponent {
   componentDidMount() {
@@ -16,13 +16,14 @@ export default class Aside extends PureComponent {
     return (
       <ul className="Aside_Menu">
         <li className="Aside_Item">
-          <Link
+          <NavLink
+            exact
             className="Aside_Item-NavLink"
             onClick={() => getPosts()}
             to="/"
           >
             <p>Home</p>
-          </Link>
+          </NavLink>
         </li>
         {isLoading === true && categories.length === 0
         ? <Loading delay={200} type='spin' color='#222' className='loading' />
@@ -31,13 +32,13 @@ export default class Aside extends PureComponent {
             key={category.path}
             className="Aside_Item"
           >
-          <Link
+          <NavLink
             className="Aside_Item-NavLink"
-            to={category.path}
+            to={`/${category.path}`}
             onClick={() => getPostByCategory(`${category.path}`)}
           >
             <p>{ category.name }</p>
-          </Link>
+          </NavLink>
           </li>
         ))}
       </ul>

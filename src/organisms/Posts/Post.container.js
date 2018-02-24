@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Post from './Post'
-import { getPosts } from '../../ducks/Post/PostReducer'
+import { getPosts, getPostByCategory } from '../../ducks/Post/PostReducer'
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ getPosts }, dispatch)
+  actions: bindActionCreators({ getPosts, getPostByCategory }, dispatch)
 })
 
 const  mapStateToProps = state => {

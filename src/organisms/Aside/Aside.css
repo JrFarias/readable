@@ -22,15 +22,11 @@
 
 .Aside_Item-NavLink p {
   border-bottom: 2px #fff solid;
+  padding: 20px 0 20px 0;
 }
 
 .Aside_Item-NavLink:hover {
   color: orange;
-}
-
-.Aside_Item-NavLink:hover p {
-  border-bottom: 2px #07b solid;
-  display: inline-block;
 }
 
 @media screen and (max-width: 800px) {
@@ -43,5 +39,10 @@
     color: #07b;
     font-size: 14px;
     padding: 0 1em;
+  }
+
+  .Aside_Item-NavLink p {
+    padding:0;
+    margin: 0;
   }
 }

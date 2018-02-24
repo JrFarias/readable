@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
-import FormGroup from '../../../../atoms/FormGroup/FormGroup'
 import PropTypes from 'prop-types'
+import { Button } from 'react-bootstrap'
+import FormGroup from '../../../../atoms/FormGroup/FormGroup'
 import { getPostByIdAPI } from '../../../../util/Api'
+import './PostDetails.css'
 
 export default class PostDetails extends PureComponent {
   componentWillMount() {
-    debugger
-
     const { post, postId } = this.props
     if (post && post.postId) {
       this.setState({
@@ -18,6 +18,8 @@ export default class PostDetails extends PureComponent {
         timestamp: post.timestamp,
         isEditable: true
       })
+    } else if(postId) {
+      this.getPostById(postId)
     } else {
       this.setState({
         id: `${Math.floor((Math.random() * 10000))}`,
@@ -29,13 +31,18 @@ export default class PostDetails extends PureComponent {
         isEditable: false
       })
     }
-
-    this.getPostById(postId)
   }
 
   getPostById(postId) {
     return getPostByIdAPI(postId)
-    .then(post => this.setState({
+    .then(post => {
+      if(!post.id) {
+        this.props.history.push('/404')
+
+        return
+      }
+
+      return this.setState({
       id: post.id,
       author: post.author,
       title: post.title,
@@ -43,7 +50,8 @@ export default class PostDetails extends PureComponent {
       category: post.category,
       timestamp: post.timestamp,
       isEditable: true
-    }))
+    })
+  })
   }
 
   state = {
@@ -70,18 +78,22 @@ export default class PostDetails extends PureComponent {
     else {
       this.props.actions.createPost(this.state)
     }
-    this.props.actions.closeModal()
+    this.props.history.push('/')
+  }
+
+  deletePost(id) {
+    this.props.actions.deletePost(id)
+    this.props.history.push('/')
   }
 
 
   render() {
     const { categories, isLoading } = this.props
-    const { deletePost } = this.props.actions
 
     const {id, author, title, body, category, isEditable } = this.state
 
     return (
-      <form id="PostModalForm" name="PostModalForm" className="container" onSubmit={(e) => this.submit(e)}>
+      <form id="PostModalForm" name="PostModalForm" className="container PostDetails" onSubmit={(e) => this.submit(e)}>
         <FormGroup
           label="Title"
           type="text"
@@ -101,7 +113,7 @@ export default class PostDetails extends PureComponent {
           value={body}
         />
 
-        <div className="PostModal__FormGroup row">
+        <div className="PostDetails__FormGroup row">
           <label htmlFor="author" className="col-sm-3">Categories:</label>
           <select
             className="col-sm-6"
@@ -118,13 +130,13 @@ export default class PostDetails extends PureComponent {
           </select>
         </div>
 
-        <div className="PostModal__Footer">
-          <button type="submit">
+        <div className="PostDetails__Footer">
+          <Button bsStyle="primary"  type="submit">
             {
               isEditable ? 'Editar' : 'Enviar'
             }
-          </button>
-          {isEditable ? <button onClick={() => deletePost(id)}>deletar</button> : ''}
+          </Button>
+          {isEditable ? <Button bsSize="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
         </div>
       </form>
     )
@@ -138,7 +150,8 @@ PostDetails.propTypes = {
   openModal: PropTypes.func,
   closeModal: PropTypes.func,
   post: PropTypes.object,
-  postId: PropTypes.string
+  postId: PropTypes.string,
+  history: PropTypes.object
 }
 
 PostDetails.defaultProps = {
@@ -148,5 +161,5 @@ PostDetails.defaultProps = {
   openModal: () => {},
   closeModal: () => {},
   post: {},
-  postId: {}
+  postId: ''
 }

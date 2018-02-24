@@ -3,40 +3,29 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import './Card.css'
 import Vote from '../../atoms/Vote/Vote.container'
-import EditIcon from 'react-icons/lib/fa/edit'
+import ExcludeIcon from 'react-icons/lib/fa/close'
 import CommentIcon from 'react-icons/lib/fa/comments'
 import { Link } from 'react-router-dom';
 
 export default class Card extends PureComponent {
-formatDate(date, moment) {
-  return moment(date).format('DD/MM/YYYY')
-}
-
-openPostModal() {
-  const {
-    postId, author, title, body, category, timestamp
-  } = this.props
-
-  return this.props.actions.openModal({
-    postId, author, title, body, category, timestamp
-  })
-}
+  formatDate(date, moment) {
+    return moment(date).format('DD/MM/YYYY')
+  }
 
   render() {
     const { postId, author, title, body, category, timestamp, voteScore
     } = this.props
 
-    const { openCommentModal } = this.props.actions
-    debugger
+    const { openCommentModal, deletePost } = this.props.actions
 
     return (
       <div id={timestamp} className="Card">
       <div className="Card__Head">
         <p className="Card__Head-title">
           <Link to={`/${category}/${postId}`}>
-            <h4>{ title }</h4>
+            { title }
           </Link>
-          <span onClick={() => this.openPostModal()}><EditIcon size={20} /></span>
+          <span onClick={() => deletePost(postId)}><ExcludeIcon size={20} /></span>
         </p>
       </div>
       <div className="Card__Content">
