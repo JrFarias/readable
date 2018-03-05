@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
+import moment from 'moment'
 import FormGroup from '../../../../atoms/FormGroup/FormGroup'
 import { getPostByIdAPI } from '../../../../util/Api'
+import Vote from '../../../../atoms/Vote/Vote.container'
+import CommentDetails from '../CommentDetails/CommentDetails.container'
 import './PostDetails.css'
 
 export default class PostDetails extends PureComponent {
@@ -16,7 +19,8 @@ export default class PostDetails extends PureComponent {
         body: post.body,
         category: post.category,
         timestamp: post.timestamp,
-        isEditable: true
+        voteScore: post.voteScore,
+        isEditable: true,
       })
     } else if(postId) {
       this.getPostById(postId)
@@ -43,15 +47,16 @@ export default class PostDetails extends PureComponent {
       }
 
       return this.setState({
-      id: post.id,
-      author: post.author,
-      title: post.title,
-      body: post.body,
-      category: post.category,
-      timestamp: post.timestamp,
-      isEditable: true
+        id: post.id,
+        author: post.author,
+        title: post.title,
+        body: post.body,
+        category: post.category,
+        timestamp: post.timestamp,
+        voteScore: post.voteScore,
+        isEditable: true,
+      })
     })
-  })
   }
 
   state = {
@@ -61,13 +66,18 @@ export default class PostDetails extends PureComponent {
     body: '',
     category: 'react',
     timestamp: Date.now(),
-    isEditable: false
+    voteScore: 0,
+    isEditable: false,
   }
 
   onChangeHandler(e, stateField) {
     return this.setState({
       [stateField]: e.target.value
     })
+  }
+
+  formatDate(date, moment) {
+    return moment(date).format('DD/MM/YYYY')
   }
 
   submit(e) {
@@ -89,10 +99,10 @@ export default class PostDetails extends PureComponent {
 
   render() {
     const { categories, isLoading } = this.props
-
-    const {id, author, title, body, category, isEditable } = this.state
+    const {id, author, title, body, category, isEditable, voteScore, timestamp } = this.state
 
     return (
+      <div>
       <form id="PostModalForm" name="PostModalForm" className="container PostDetails" onSubmit={(e) => this.submit(e)}>
         <FormGroup
           label="Title"
@@ -130,15 +140,28 @@ export default class PostDetails extends PureComponent {
           </select>
         </div>
 
+
         <div className="PostDetails__Footer">
-          <Button bsStyle="primary"  type="submit">
-            {
-              isEditable ? 'Editar' : 'Enviar'
-            }
-          </Button>
-          {isEditable ? <Button bsSize="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
+          <div>
+            <span className="Card__Foote-date">{ this.formatDate(timestamp, moment) }</span>
+            <Vote
+              postId={id}
+              voteScore={voteScore}
+            />
+          </div>
+          <div>
+            <Button bsStyle="primary"  type="submit">
+              {
+                isEditable ? 'Editar' : 'Enviar'
+              }
+            </Button>
+            {isEditable ? <Button bsStyle="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
+          </div>
         </div>
       </form>
+
+      <CommentDetails />
+      </div>
     )
   }
 }

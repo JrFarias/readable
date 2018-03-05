@@ -1,0 +1,9 @@
+.CommentDetails__Header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CommentDetails__ButtonGroup {
+  display: flex;
+}

@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import CommentModal from './CommentModal'
-import { openModal, closeModal } from '../../../../ducks/CommentModal/CommentModalReducer'
+import CommentDetails from './CommentDetails'
+import {  closeModal, createComment, editComment, deleteComment } from '../../../../ducks/CommentModal/CommentModalReducer'
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    openModal,
     closeModal,
+    createComment,
+    editComment,
+    deleteComment
   }, dispatch)
 })
 
@@ -16,4 +18,4 @@ const  mapStateToProps = state => {
   isLoading: state.commentModal.isLoading,
 }}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentModal)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentDetails)

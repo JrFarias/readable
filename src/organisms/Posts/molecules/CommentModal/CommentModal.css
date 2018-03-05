@@ -18,13 +18,3 @@
     right: 20px;
   }
 }
-
-.CommentModal__Header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.CommentModal__ButtonGroup {
-  display: flex;
-}
