@@ -5,22 +5,17 @@ import { withRouter } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import './Content.css'
 import PostContainer from '../Posts/Post.container'
-import CommentModalContainer from '../Posts/molecules/CommentModal/CommentModal.container'
 import sortBy from 'sort-by'
 
 class Content extends PureComponent {
-  state = {
-    posts: []
-  }
+
 
   AddPost() {
     return this.props.history.push('/post/add')
   }
 
-  orderByVotes(sortBy) {
-    this.setState({
-      posts: this.props.posts.sort(sortBy('-voteScore'))
-    })
+  orderByVotes() {
+   this.props.actions.sortByVotes()
   }
 
   orderByTimeStamp(sortBy) {
@@ -29,10 +24,8 @@ class Content extends PureComponent {
     })
   }
 
-
   render() {
-    const { category } = this.props
-    const { posts } = this.state
+    const { posts } = this.props
 
     return (
       <div className="Content">
@@ -45,13 +38,12 @@ class Content extends PureComponent {
           <PlusIcon size={20} />Adicionar Post
         </Button>
 
-        <Button bsSize="small" onClick={() => this.orderByVotes(sortBy)}>
+        <Button bsSize="small" onClick={() => this.orderByVotes()}>
           Votos
         </Button>
        </div>
 
-       <CommentModalContainer />
-       <PostContainer category={category} posts={posts} />
+       <PostContainer posts={posts} />
      </div>
     )
   }
@@ -62,6 +54,13 @@ Content.propTypes = {
   history: PropTypes.object,
   actions: PropTypes.object,
   posts: PropTypes.array
+}
+
+Content.defaultProps = {
+  posts: [],
+  category: '',
+  history: {},
+  actions: {}
 }
 
 export default withRouter(Content)

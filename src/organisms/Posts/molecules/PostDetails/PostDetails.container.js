@@ -2,18 +2,22 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import PostDetails from './PostDetails'
-import { createPost, editPost, deletePost } from '../../../../ducks/Post/PostReducer'
+import { createPost, editPost, deletePost, getPostId } from '../../../../ducks/Post/PostReducer'
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     createPost,
     editPost,
-    deletePost
+    deletePost,
+    getPostId
   }, dispatch)
 })
 
-const  mapStateToProps = state => ({
-  categories: state.categories.categories
-})
+const  mapStateToProps = state => {
+  return {
+    categories: state.categories.categories,
+    post: state.posts.post
+  }
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails))

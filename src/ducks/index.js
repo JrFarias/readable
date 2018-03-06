@@ -15,11 +15,13 @@ import posts, {
   EDIT_POST_START,
   editPostSaga,
   DELETE_POST_START,
-  deletePostSaga
+  deletePostSaga,
+  GET_POST_BY_ID_START,
+  getPostById
 } from '../ducks/Post/PostReducer'
 
-import commentModal, {
-  COMMENT_MODAL_IS_OPEN,
+import commentDetails, {
+  GET_COMMENTS_START,
   getCommentsByPostSaga,
   CREATE_COMMENT_START,
   createCommentSaga,
@@ -31,12 +33,12 @@ import commentModal, {
   upVoteCommentSaga,
   DOWN_VOTE_COMMENT,
   downVoteCommentSaga
-} from '../ducks/CommentModal/CommentModalReducer'
+} from '../ducks/CommentDetails/CommentDetailsReducer'
 
 export const rootReducer = combineReducers({
   categories,
   posts,
-  commentModal
+  commentDetails
 })
 
 export function *rootSaga() {
@@ -49,11 +51,12 @@ export function *rootSaga() {
     takeEvery(CREATE_POST_START, createPostSaga),
     takeEvery(EDIT_POST_START, editPostSaga),
     takeEvery(DELETE_POST_START, deletePostSaga),
-    takeEvery(COMMENT_MODAL_IS_OPEN, getCommentsByPostSaga),
+    takeEvery(GET_COMMENTS_START, getCommentsByPostSaga),
     takeEvery(CREATE_COMMENT_START, createCommentSaga),
     takeEvery(EDIT_COMMENT_START, editCommentSaga),
     takeEvery(DELETE_COMMENT_START, deleteCommentSaga),
     takeEvery(UP_VOTE_COMMENT, upVoteCommentSaga),
     takeEvery(DOWN_VOTE_COMMENT, downVoteCommentSaga),
+    takeEvery(GET_POST_BY_ID_START, getPostById)
   ]);
 }

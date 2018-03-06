@@ -13,7 +13,7 @@ import reducer, {
   closeModal,
   openModal,
   deleteComment
-} from './CommentModalReducer'
+} from './CommentDetailsReducer'
 
 describe('CommentModal Ducks', () => {
   describe('CommentModal Reducer', () => {

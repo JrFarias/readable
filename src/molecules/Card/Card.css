@@ -21,6 +21,10 @@ span {
   margin: 0.0625em;
 }
 
+.Card__Head-delete {
+  cursor: pointer;
+}
+
 
 .Card__Content {
   background-color: #eee;

@@ -7,8 +7,7 @@ import {
   voteCommentAPI
 } from '../../util/Api'
 
-export const COMMENT_MODAL_IS_OPEN = 'COMMENT_MODAL_IS_OPEN'
-export const COMMENT_MODAL_IS_CLOSE = 'COMMENT_MODAL_IS_CLOSE'
+export const GET_COMMENTS_START = 'GET_COMMENTS_START'
 const GET_COMMENTS_COMPLETED = 'GET_COMMENTS_COMPLETED'
 
 export const CREATE_COMMENT_START = 'CREATE_COMMENT_START'
@@ -26,14 +25,9 @@ const UP_VOTE_COMMENT_COMPLETED = 'UP_VOTE_COMMENT_COMPLETED'
 export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
 const DOWN_VOTE_COMMENT_COMPLETED = 'DOWN_VOTE_COMMENT_COMPLETED'
 
-export const openModal = postId => {
-  return {
-  type: COMMENT_MODAL_IS_OPEN,
+export const getComments = postId => ({
+  type: GET_COMMENTS_START,
   postId
-}}
-
-export const closeModal = () => ({
-  type: COMMENT_MODAL_IS_CLOSE
 })
 
 export const createComment = comment => ({
@@ -70,18 +64,13 @@ export default function reducer(state = initialState, action = {}) {
   const { payload, commentId } = action
 
   switch (action.type) {
-    case COMMENT_MODAL_IS_OPEN :
+    case GET_COMMENTS_START :
       return {
         ...state,
-        isOpenModal: true,
         isLoading: true,
         postId: action.postId
       };
-    case COMMENT_MODAL_IS_CLOSE :
-      return {
-        ...state,
-        isOpenModal: false,
-      };
+
     case GET_COMMENTS_COMPLETED:
       return {
         ...state,

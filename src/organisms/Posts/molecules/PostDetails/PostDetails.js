@@ -2,56 +2,28 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
 import FormGroup from '../../../../atoms/FormGroup/FormGroup'
-import { getPostByIdAPI } from '../../../../util/Api'
+import CommentDetails from '../CommentDetails/CommentDetails.container'
 import './PostDetails.css'
+import Vote from '../../../../molecules/Vote/Vote.container'
 
 export default class PostDetails extends PureComponent {
-  componentWillMount() {
-    const { post, postId } = this.props
-    if (post && post.postId) {
-      this.setState({
-        id: post.postId,
-        author: post.author,
-        title: post.title,
-        body: post.body,
-        category: post.category,
-        timestamp: post.timestamp,
-        isEditable: true
-      })
-    } else if(postId) {
-      this.getPostById(postId)
-    } else {
-      this.setState({
-        id: `${Math.floor((Math.random() * 10000))}`,
-        author: '',
-        title: '',
-        body: '',
-        category: 'react',
-        timestamp: Date.now(),
-        isEditable: false
-      })
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.post.error) {
+      this.props.history.push('/404')
+    }
+
+    if (nextProps.post.id) { //eslint-disable-line
+      const nextState = Object.assign({}, nextProps.post, { isEditable: true })
+      this.setState(nextState)
     }
   }
 
-  getPostById(postId) {
-    return getPostByIdAPI(postId)
-    .then(post => {
-      if(!post.id) {
-        this.props.history.push('/404')
+  componentWillMount() {
+    if (!this.props.postId) {
+      return
+    }
 
-        return
-      }
-
-      return this.setState({
-      id: post.id,
-      author: post.author,
-      title: post.title,
-      body: post.body,
-      category: post.category,
-      timestamp: post.timestamp,
-      isEditable: true
-    })
-  })
+    this.props.actions.getPostId(this.props.postId)
   }
 
   state = {
@@ -61,7 +33,9 @@ export default class PostDetails extends PureComponent {
     body: '',
     category: 'react',
     timestamp: Date.now(),
-    isEditable: false
+    isEditable: false,
+    voteScore: 0,
+    commentCount: 0,
   }
 
   onChangeHandler(e, stateField) {
@@ -74,11 +48,11 @@ export default class PostDetails extends PureComponent {
     e.preventDefault()
     if(this.state.isEditable) {
       this.props.actions.editPost(this.state)
+      this.props.history.push('/')
     }
     else {
       this.props.actions.createPost(this.state)
     }
-    this.props.history.push('/')
   }
 
   deletePost(id) {
@@ -86,59 +60,73 @@ export default class PostDetails extends PureComponent {
     this.props.history.push('/')
   }
 
-
   render() {
     const { categories, isLoading } = this.props
-
-    const {id, author, title, body, category, isEditable } = this.state
+    const {id, author, title, body, category, isEditable, voteScore, commentCount } = this.state
 
     return (
-      <form id="PostModalForm" name="PostModalForm" className="container PostDetails" onSubmit={(e) => this.submit(e)}>
-        <FormGroup
-          label="Title"
-          type="text"
-          onChange={(e) => this.onChangeHandler(e, 'title')}
-          value={title}
-        />
-        <FormGroup
-          label="Author"
-          type="text"
-          onChange={(e) => this.onChangeHandler(e, 'author')}
-          value={author}
-        />
-        <FormGroup
-          label="Message"
-          type="text"
-          onChange={(e) => this.onChangeHandler(e, 'body')}
-          value={body}
-        />
+      <div className="container PostDetails">
+        <form id="PostModalForm" name="PostModalForm" onSubmit={(e) => this.submit(e)}>
+          <FormGroup
+            label="Title"
+            type="text"
+            onChange={(e) => this.onChangeHandler(e, 'title')}
+            value={title}
+          />
+          <FormGroup
+            label="Author"
+            type="text"
+            onChange={(e) => this.onChangeHandler(e, 'author')}
+            value={author}
+          />
+          <FormGroup
+            label="Message"
+            type="text"
+            onChange={(e) => this.onChangeHandler(e, 'body')}
+            value={body}
+          />
 
-        <div className="PostDetails__FormGroup row">
-          <label htmlFor="author" className="col-sm-3">Categories:</label>
-          <select
-            className="col-sm-6"
-            name="category"
-            value={category}
-            onChange={(e) => this.onChangeHandler(e, 'category')}
-          >
-          {isLoading === true && categories.length === 0
-            ? <option>Seletion...</option>
-            : categories.map(category => (
-              <option key={ category.path }>{ category.name }</option>
-            ))
-          }
-          </select>
-        </div>
-
-        <div className="PostDetails__Footer">
-          <Button bsStyle="primary"  type="submit">
-            {
-              isEditable ? 'Editar' : 'Enviar'
+          <div className="PostDetails__FormGroup row">
+            <label htmlFor="author" className="col-sm-3">Categories:</label>
+            <select
+              className="col-sm-6"
+              name="category"
+              value={category}
+              onChange={(e) => this.onChangeHandler(e, 'category')}
+            >
+            {isLoading === true && categories.length === 0
+              ? <option>Seletion...</option>
+              : categories.map(category => (
+                <option key={ category.path }>{ category.name }</option>
+              ))
             }
-          </Button>
-          {isEditable ? <Button bsSize="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
+            </select>
+          </div>
+          <div className="PostDetails__Footer">
+            <div>
+              <Button bsStyle="primary"  type="submit">
+                {
+                  isEditable ? 'Editar' : 'Enviar'
+                }
+              </Button>
+              {isEditable ? <Button bsStyle="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
+            </div>
+            <div>
+              <Vote
+                postId={id}
+                voteScore={voteScore}
+              />
+            {commentCount} Comments
+            </div>
+          </div>
+        </form>
+        <div className="PostDetails__Comments">
+        { !isEditable
+          ? <div></div>
+          : <CommentDetails postId={id} />
+        }
         </div>
-      </form>
+      </div>
     )
   }
 }
@@ -147,19 +135,15 @@ PostDetails.propTypes = {
   categories: PropTypes.array,
   isLoading: PropTypes.bool,
   actions: PropTypes.object,
-  openModal: PropTypes.func,
-  closeModal: PropTypes.func,
   post: PropTypes.object,
-  postId: PropTypes.string,
-  history: PropTypes.object
+  history: PropTypes.object,
+  postId: PropTypes.string
 }
 
 PostDetails.defaultProps = {
   categories: [],
   isLoading: false,
   actions: {},
-  openModal: () => {},
-  closeModal: () => {},
   post: {},
   postId: ''
 }
