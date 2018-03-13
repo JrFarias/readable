@@ -56,7 +56,6 @@ export const downVoteComment = commentId => ({
 })
 
 export const initialState = {
-  isOpenModal: false,
   comments: []
 }
 

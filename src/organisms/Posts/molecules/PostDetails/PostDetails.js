@@ -12,7 +12,7 @@ export default class PostDetails extends PureComponent {
       this.props.history.push('/404')
     }
 
-    if (nextProps.post.id) { //eslint-disable-line
+    if (nextProps.post.id) {
       const nextState = Object.assign({}, nextProps.post, { isEditable: true })
       this.setState(nextState)
     }
@@ -48,11 +48,12 @@ export default class PostDetails extends PureComponent {
     e.preventDefault()
     if(this.state.isEditable) {
       this.props.actions.editPost(this.state)
-      this.props.history.push('/')
     }
     else {
       this.props.actions.createPost(this.state)
     }
+
+    this.props.history.push('/')
   }
 
   deletePost(id) {
@@ -111,14 +112,18 @@ export default class PostDetails extends PureComponent {
               </Button>
               {isEditable ? <Button bsStyle="danger" onClick={() => this.deletePost(id)}>deletar</Button> : ''}
             </div>
-            <div>
-              <Vote
-                postId={id}
-                voteScore={voteScore}
-              />
-            {commentCount} Comments
+            {isEditable
+              ?
+                <div>
+                  <Vote
+                    postId={id}
+                    voteScore={voteScore}
+                  />
+                {commentCount} Comments
+                </div>
+              : <div></div>
+            }
             </div>
-          </div>
         </form>
         <div className="PostDetails__Comments">
         { !isEditable

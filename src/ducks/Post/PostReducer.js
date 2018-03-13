@@ -35,10 +35,14 @@ export const GET_POST_BY_ID_START = 'GET_POST_BY_ID_START'
 const GET_POST_BY_ID_COMPLETED = 'GET_POST_BY_ID_COMPLETED'
 
 export const SORT_BY_VOTES = 'SORT_BY_VOTES'
-
+export const SORT_BY_TIMESTAMP = 'SORT_BY_TIMESTAMP'
 
 export const sortByVotes = () => ({
-  type: SORT_BY_VOTES
+  type: SORT_BY_VOTES,
+})
+
+export const sortByTimeStamp = () => ({
+  type: SORT_BY_TIMESTAMP,
 })
 
 export const getPosts = (post) => ({
@@ -84,7 +88,8 @@ export const getPostId = postId => ({
 export const initialState = {
   posts: [],
   isLoading: false,
-  sortByVotes: false
+  sortByVotes: true,
+  sortByTimeStamp: false
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -186,10 +191,19 @@ export default function reducer(state = initialState, action = {}) {
         isLoading: false
       }
     case SORT_BY_VOTES:
-    return {
-      ...state,
-      sortByVotes: true
-    }
+      return {
+        ...state,
+        posts: JSON.parse(JSON.stringify(state.posts)),
+        sortByVotes: true,
+        sortByTimeStamp: false,
+      }
+    case SORT_BY_TIMESTAMP:
+      return {
+        ...state,
+        posts: JSON.parse(JSON.stringify(state.posts)),
+        sortByTimeStamp: true,
+        sortByVotes: false,
+      }
     default :
       return state
   }
