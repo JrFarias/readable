@@ -8,20 +8,16 @@ import PostContainer from '../Posts/Post.container'
 import sortBy from 'sort-by'
 
 class Content extends PureComponent {
-
-
   AddPost() {
     return this.props.history.push('/post/add')
   }
 
   orderByVotes() {
-   this.props.actions.sortByVotes()
+   this.props.actions.sortByVotes(sortBy)
   }
 
-  orderByTimeStamp(sortBy) {
-    this.setState({
-      posts: this.props.posts.sort(sortBy('-timestamp'))
-    })
+  orderByTimeStamp() {
+    this.props.actions.sortByTimeStamp(sortBy)
   }
 
   render() {
@@ -30,7 +26,7 @@ class Content extends PureComponent {
     return (
       <div className="Content">
        <div className="Content_Buttons">
-        <Button bsSize="small" onClick={() => this.orderByTimeStamp(sortBy)}>
+        <Button bsSize="small" onClick={() => this.orderByTimeStamp()}>
           Data de Criação
         </Button>
 
