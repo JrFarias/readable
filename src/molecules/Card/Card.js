@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import './Card.css'
-import Vote from '../../atoms/Vote/Vote.container'
+import Vote from '../Vote/Vote.container'
 import ExcludeIcon from 'react-icons/lib/fa/close'
-import CommentIcon from 'react-icons/lib/fa/comments'
+import EditIcon from 'react-icons/lib/fa/edit'
 import { Link } from 'react-router-dom';
 
 export default class Card extends PureComponent {
@@ -13,20 +13,23 @@ export default class Card extends PureComponent {
   }
 
   render() {
-    const { postId, author, title, body, category, timestamp, voteScore
-    } = this.props
+    const { postId, author, title, body,
+      category, timestamp, voteScore, commentCount } = this.props
 
-    const { openCommentModal, deletePost } = this.props.actions
+    const { deletePost } = this.props.actions
 
     return (
       <div id={timestamp} className="Card">
       <div className="Card__Head">
-        <p className="Card__Head-title">
+        <div className="Card__Head-title">
           <Link to={`/${category}/${postId}`}>
             { title }
           </Link>
-          <span onClick={() => deletePost(postId)}><ExcludeIcon size={20} /></span>
-        </p>
+          <div>
+            <Link to={`/${category}/${postId}`}><EditIcon size={20} color="black" /></Link>
+            <span className="Card__Head-delete" onClick={() => deletePost(postId)}><ExcludeIcon size={20} /></span>
+          </div>
+        </div>
       </div>
       <div className="Card__Content">
         <div className="Card__Content--category col-md-4"><span>Category: </span>{ category }</div>
@@ -36,7 +39,7 @@ export default class Card extends PureComponent {
       </div>
       <div className="Card__Footer">
         <div className="Card__Footer-author"><span>Author: </span>{ author }</div>
-        <div onClick={() => openCommentModal(postId)}><CommentIcon size={20}/> Comment</div>
+        <div>{commentCount} Comments</div>
         <div className="Card__Footer-end">
           <span className="Card__Foote-date">{ this.formatDate(timestamp, moment) }</span>
           <Vote
@@ -61,7 +64,8 @@ Card.propTypes = {
   category: PropTypes.string,
   timestamp: PropTypes.number,
   voteScore: PropTypes.number,
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  commentCount: PropTypes.number
 }
 
 Card.defaultProps = {
@@ -72,5 +76,6 @@ Card.defaultProps = {
   category: '',
   timestamp: 0,
   voteScore: 0,
-  actions: {}
+  actions: {},
+  commentCount: 0
 }

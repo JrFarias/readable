@@ -6,15 +6,7 @@ import './Post.css'
 
 export default class Post extends PureComponent {
   componentDidMount() {
-    if (this.props.category) {
-      this.props.actions.getPostByCategory(this.props.category)
-    } else {
-      this.props.actions.getPosts();
-    }
-  }
-
-  componentWillReceiveProps() {
-   this.forceUpdate()
+    this.props.actions.getPosts();
   }
 
   render() {
@@ -31,6 +23,7 @@ export default class Post extends PureComponent {
             author={post.author}
             title={post.title}
             body={post.body}
+            commentCount={post.commentCount}
             category={post.category}
             timestamp={post.timestamp}
             voteScore={post.voteScore}

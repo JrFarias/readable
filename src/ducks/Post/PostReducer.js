@@ -5,7 +5,8 @@ import {
   getPostByCategoryAPI,
   createPostAPI,
   editPostAPI,
-  deletePostAPI
+  deletePostAPI,
+  getPostByIdAPI
 } from '../../util/Api'
 
 export const GET_POSTS_SAGA = 'GET_POSTS_SAGA'
@@ -29,6 +30,20 @@ const EDIT_POST_COMPLETED = 'EDIT_POST_COMPLETED'
 
 export const DELETE_POST_START = 'DELETE_POST_START'
 const DELETE_POST_COMPLETED = 'DELETE_POST_COMPLETED'
+
+export const GET_POST_BY_ID_START = 'GET_POST_BY_ID_START'
+const GET_POST_BY_ID_COMPLETED = 'GET_POST_BY_ID_COMPLETED'
+
+export const SORT_BY_VOTES = 'SORT_BY_VOTES'
+export const SORT_BY_TIMESTAMP = 'SORT_BY_TIMESTAMP'
+
+export const sortByVotes = () => ({
+  type: SORT_BY_VOTES,
+})
+
+export const sortByTimeStamp = () => ({
+  type: SORT_BY_TIMESTAMP,
+})
 
 export const getPosts = (post) => ({
   type: GET_POSTS_SAGA,
@@ -65,9 +80,16 @@ export const deletePost = postId => ({
   postId
 })
 
+export const getPostId = postId => ({
+  type: GET_POST_BY_ID_START,
+  postId
+})
+
 export const initialState = {
   posts: [],
-  isLoading: false
+  isLoading: false,
+  sortByVotes: true,
+  sortByTimeStamp: false
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -94,6 +116,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         posts: state.posts.map(post => post.id === postId ? payload : post),
+        post: payload,
         isLoading: false
       };
 
@@ -106,6 +129,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         posts: state.posts.map(post => post.id === postId ? payload : post),
+        post: payload,
         isLoading: false
       };
 
@@ -153,6 +177,32 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         posts: state.posts.filter(post => post.id !== postId),
         isLoading: false
+      }
+    case GET_POST_BY_ID_START:
+      return {
+        ...state,
+        postId,
+        isLoading: true
+      }
+    case GET_POST_BY_ID_COMPLETED:
+      return {
+        ...state,
+        post: payload,
+        isLoading: false
+      }
+    case SORT_BY_VOTES:
+      return {
+        ...state,
+        posts: JSON.parse(JSON.stringify(state.posts)),
+        sortByVotes: true,
+        sortByTimeStamp: false,
+      }
+    case SORT_BY_TIMESTAMP:
+      return {
+        ...state,
+        posts: JSON.parse(JSON.stringify(state.posts)),
+        sortByTimeStamp: true,
+        sortByVotes: false,
       }
     default :
       return state
@@ -218,6 +268,16 @@ export function *getPostByCategorySaga({ payload }, request = getPostByCategoryA
   try {
     const postByCategory = yield request(payload)
     yield put({ type: GET_POST_BY_CATEGORY_COMPLETED, payload: postByCategory })
+  } catch (error) {
+    ///
+  }
+}
+
+
+export function *getPostById({ postId }, request = getPostByIdAPI) {
+  try {
+    const post = yield request(postId)
+    yield put({ type: GET_POST_BY_ID_COMPLETED, payload: post })
   } catch (error) {
     ///
   }

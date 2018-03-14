@@ -1,0 +1,11 @@
+.CommentDetails__ButtonGroup {
+  display: flex;
+}
+
+.CommentDetails__Button {
+  align-self: flex-end;
+}
+
+.CommentDetails__Messages {
+  margin-bottom: 20px;
+}
