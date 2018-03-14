@@ -179,28 +179,6 @@ describe('CommentModal Ducks', () => {
       })
     })
 
-
-    describe('closeModal', () => {
-      test('should call closeModal', () => {
-        const olar = 'olar'
-        expect(closeModal(olar)).toEqual({
-          type: 'COMMENT_MODAL_IS_CLOSE',
-        })
-      })
-    })
-
-    describe('openModal', () => {
-      test('should call openModal', () => {
-        const olar = 'olar'
-        expect(openModal(olar)).toEqual({
-          type: 'COMMENT_MODAL_IS_OPEN',
-          postId: olar
-        })
-      })
-    })
-
-    deleteComment
-
     describe('getCommentsByPostSaga', () => {
       test('should build a GET_COMMENTS_COMPLETED action', () => {
         const postId = ''

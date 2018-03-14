@@ -35,14 +35,15 @@ After:
 └── src
     ├── atoms
     │   ├── FormGroup
-    │   └── Vote
+    │   └── NotFound
     ├── ducks
     │   ├── Categories
-    │   └── CommentModal
+    │   └── CommentDetails
     │   └── Post
     │   └── index
     ├── molecules
     │   ├── Card
+    │   ├── Vote
     ├── organisms
     │   ├── Aside
     │   └── Content
@@ -50,7 +51,7 @@ After:
     │   └── Header
     │   └── Posts
     │       ├── molecules
-    │       │   └── CommentModal
+    │       │   └── CommentDetails
     │       │   └── PostDetails
     │       └── Post.container
     │       └── Post
